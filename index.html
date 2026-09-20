@@ -1281,7 +1281,8 @@
 
                     <div>
                         <label class="block text-xs font-extrabold text-slate-400 mb-2 uppercase tracking-wider">Chọn Nhà Mạng</label>
-                        <div id="card-topup-carrier-grid" class="grid grid-cols-4 gap-2.5"></div>
+                        <div id="card-topup-carrier-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
+                        <div id="card-topup-fee-note" class="mt-3 bg-slate-950 border border-slate-800 p-4 space-y-2.5"></div>
                     </div>
 
                     <div id="card-topup-detail-box" class="hidden space-y-5 pt-1">
@@ -1297,6 +1298,7 @@
                             <label class="block text-xs font-extrabold text-slate-400 mb-1.5 uppercase tracking-wider">Mã Thẻ (Cào)</label>
                             <input type="text" id="card-topup-code" placeholder="Nhập mã thẻ sau khi cào..." class="w-full bg-slate-950 border border-slate-800 px-4 py-3 text-sm text-white outline-none font-mono tracking-wider focus:border-brand-500 transition">
                         </div>
+                        <div id="card-topup-net-preview" class="hidden bg-emerald-500/10 border border-emerald-500/30 text-slate-200 text-xs font-semibold p-3 leading-relaxed"></div>
                         <div class="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-semibold p-3 leading-relaxed">
                             <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Số tiền cộng vào ví sẽ được khấu trừ theo mức phí gạch thẻ hiện hành và cộng vào ví sau khi Admin đối soát thành công.
                         </div>
@@ -1336,6 +1338,8 @@
                     </div>
 
                     <div id="withdraw-rule-notice" class="hidden"></div>
+
+                    <div id="withdraw-fee-schedule"></div>
 
                     <form onsubmit="handleWithdrawSubmit(event)" class="space-y-4">
                         <div>
@@ -4349,22 +4353,62 @@
             document.getElementById('card-topup-serial').value = '';
             document.getElementById('card-topup-code').value = '';
             const carrierGrid = document.getElementById('card-topup-carrier-grid');
+            const feeCfg = getCardFeeConfig();
             carrierGrid.innerHTML = CARD_CARRIERS.map(c => `
-                <button type="button" id="carrier-btn-${c}" onclick="selectCardCarrier('${c}')" class="bg-slate-900 border border-slate-800 hover:border-emerald-500 text-slate-200 font-extrabold py-3 text-xs uppercase transition">${c}</button>
+                <button type="button" id="carrier-btn-${c}" onclick="selectCardCarrier('${c}')" class="flex flex-col items-center justify-center text-center px-1 py-3 bg-slate-900 border border-slate-800 hover:border-emerald-500 text-slate-200 transition">
+                    <span class="block text-xs font-extrabold uppercase leading-tight">${c}</span>
+                    <span id="carrier-fee-${c}" class="block text-[10px] font-bold normal-case opacity-80 mt-1">Chiết khấu ${feeCfg[c] != null ? feeCfg[c] : 10}%</span>
+                </button>
             `).join('');
             const denomGrid = document.getElementById('card-topup-denom-grid');
             denomGrid.innerHTML = CARD_DENOMS.map(d => `
                 <button type="button" id="denom-btn-${d}" onclick="selectCardDenom(${d})" class="bg-slate-900 border border-slate-800 hover:border-emerald-500 text-slate-200 font-bold py-2.5 text-xs font-mono transition">${formatVND(d)}</button>
             `).join('');
+            renderCardTopupFeeNote();
+            refreshCardTopupNetPreview();
             renderCardTopupHistory();
+        }
+        // % chiết khấu (phí gạch thẻ) theo từng nhà mạng do Admin cấu hình
+        function getCardTopupFee(c) { const cfg = getCardFeeConfig(); return cfg[c] != null ? cfg[c] : 10; }
+        function renderCardTopupFeeNote() {
+            const box = document.getElementById('card-topup-fee-note');
+            if (!box) return;
+            const ex = 100000;
+            const rows = CARD_CARRIERS.map(c => {
+                const fee = getCardTopupFee(c);
+                return `<div class="flex items-center justify-between gap-3 bg-slate-900 border border-slate-800 px-3 py-2">
+                            <span class="text-xs font-extrabold text-white uppercase">${c}</span>
+                            <span class="text-xs font-mono font-black text-amber-400">${fee}%</span>
+                        </div>`;
+            }).join('');
+            box.innerHTML = `
+                <div class="flex items-center gap-2 text-[11px] font-extrabold text-amber-400 uppercase tracking-wider"><i class="fa-solid fa-percent"></i> Bảng chiết khấu nạp thẻ theo nhà mạng</div>
+                <div class="grid grid-cols-2 gap-2">${rows}</div>
+                <p class="text-[11px] text-slate-400 font-medium leading-relaxed">Thực nhận = Mệnh giá thẻ × (100% − chiết khấu). VD: thẻ ${formatVND(ex)} của ${CARD_CARRIERS[0]} chiết khấu ${getCardTopupFee(CARD_CARRIERS[0])}% → nhận ${formatVND(Math.round(ex * (1 - getCardTopupFee(CARD_CARRIERS[0]) / 100)))}.</p>`;
+            CARD_CARRIERS.forEach(c => {
+                const el = document.getElementById('carrier-fee-' + c);
+                if (el) el.textContent = 'Chiết khấu ' + getCardTopupFee(c) + '%';
+            });
+            refreshCardTopupNetPreview();
+        }
+        function refreshCardTopupNetPreview() {
+            const box = document.getElementById('card-topup-net-preview');
+            if (!box) return;
+            if (!_cardTopupCarrier) { box.classList.add('hidden'); return; }
+            const fee = getCardTopupFee(_cardTopupCarrier);
+            let html = `<i class="fa-solid fa-percent mr-1.5 text-emerald-400"></i> Chiết khấu ${escHtml(_cardTopupCarrier)}: <b class="text-amber-400 font-mono">${fee}%</b>`;
+            if (_cardTopupDenom) html += ` · Thực nhận dự kiến: <b class="text-emerald-400 font-mono">${formatVND(Math.round(_cardTopupDenom * (1 - fee / 100)))}</b>`;
+            box.innerHTML = html;
+            box.classList.remove('hidden');
         }
         function selectCardCarrier(carrier) {
             _cardTopupCarrier = carrier;
             CARD_CARRIERS.forEach(c => {
                 const btn = document.getElementById('carrier-btn-' + c);
-                if (btn) btn.className = 'font-extrabold py-3 text-xs uppercase transition border ' + (c === carrier ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-slate-900 border-slate-800 hover:border-emerald-500 text-slate-200');
+                if (btn) btn.className = 'flex flex-col items-center justify-center text-center px-1 py-3 transition border ' + (c === carrier ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-slate-900 border-slate-800 hover:border-emerald-500 text-slate-200');
             });
             document.getElementById('card-topup-detail-box').classList.remove('hidden');
+            refreshCardTopupNetPreview();
         }
         function selectCardDenom(amount) {
             _cardTopupDenom = amount;
@@ -4372,6 +4416,7 @@
                 const btn = document.getElementById('denom-btn-' + d);
                 if (btn) btn.className = 'font-bold py-2.5 text-xs font-mono transition border ' + (d === amount ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-slate-900 border-slate-800 hover:border-emerald-500 text-slate-200');
             });
+            refreshCardTopupNetPreview();
         }
         function submitCardTopup() {
             if (!currentUser) { showToast("Vui lòng đăng nhập!", "error"); return; }
@@ -4446,6 +4491,7 @@
             saveCardFeeConfigData(cfg);
             renderAdminCardFeeConfig();
             renderAdminPendingCardTopups();
+            renderCardTopupFeeNote();
             showToast("Đã lưu cấu hình % phí gạch thẻ theo từng nhà mạng!", "success");
         }
         function renderAdminPendingCardTopups() {
@@ -4722,7 +4768,7 @@
             window.scrollTo(0, 0); // chuyển trang: về đầu trang NGAY, không chờ hiệu ứng cuộn
 
             if (pageId === 'home') renderAccountGrid();
-            if (pageId === 'withdraw') { populateBankDropdowns(); renderWithdrawHistory(); renderTxnRuleNotices(); }
+            if (pageId === 'withdraw') { populateBankDropdowns(); renderWithdrawHistory(); renderTxnRuleNotices(); renderWithdrawFeeSchedule(); }
             if (pageId === 'user-history') renderUserHistoryTables();
             if (pageId === 'admin') renderAdminAllData();
             if (pageId === 'history') renderHistory();
@@ -5731,6 +5777,48 @@
             }
         }
 
+        // Biểu phí / % khấu trừ rút tiền chi tiết (lấy từ cấu hình phí rút của Admin)
+        function renderWithdrawFeeSchedule() {
+            const box = document.getElementById('withdraw-fee-schedule');
+            if (!box) return;
+            const st = getSettings();
+            const isPct = st.withdrawFeeType === 'percent';
+            const val = st.withdrawFeeVal || 0;
+            const minW = st.minWithdraw || 50000, maxW = st.maxWithdraw || 20000000;
+            const feeOf = a => isPct ? Math.round(a * val / 100) : val;
+            const pctOf = a => (a > 0 ? +(feeOf(a) / a * 100).toFixed(2) : 0) + '%';
+            const amounts = Array.from(new Set([minW, ...[100000, 200000, 500000, 1000000, 5000000].filter(a => a > minW && a < maxW), maxW])).sort((a, b) => a - b);
+            const typeLine = val <= 0
+                ? '<b class="text-emerald-400">Miễn phí rút tiền</b>'
+                : (isPct
+                    ? `Phí rút theo %: <b class="text-amber-400 font-mono">${val}%</b> trên số tiền rút mỗi lệnh`
+                    : `Phí cố định: <b class="text-amber-400 font-mono">${formatVND(val)}</b> mỗi lệnh rút`);
+            const rows = amounts.map(a => {
+                const fee = feeOf(a);
+                return `<tr class="border-t border-slate-800">
+                            <td class="px-2 py-1.5 font-mono font-bold text-white">${formatVND(a)}</td>
+                            <td class="px-2 py-1.5 font-mono font-bold text-amber-400">${formatVND(fee)} <span class="text-slate-400 font-semibold">(${pctOf(a)})</span></td>
+                            <td class="px-2 py-1.5 font-mono font-black text-emerald-400">${formatVND(Math.max(0, a - fee))}</td>
+                        </tr>`;
+            }).join('');
+            box.innerHTML = `
+                <div class="bg-slate-950 p-3.5 border border-slate-800 space-y-2.5 text-xs font-medium">
+                    <div class="text-[10px] font-extrabold text-amber-400 uppercase tracking-widest"><i class="fa-solid fa-percent mr-1"></i> Biểu phí &amp; khấu trừ rút tiền</div>
+                    <div class="text-slate-300">${typeLine}</div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-[11px]">
+                            <thead><tr class="text-slate-400 uppercase text-[10px] tracking-wider">
+                                <th class="px-2 py-1.5 font-extrabold">Số tiền rút</th>
+                                <th class="px-2 py-1.5 font-extrabold">Phí khấu trừ (%)</th>
+                                <th class="px-2 py-1.5 font-extrabold">Thực nhận</th>
+                            </tr></thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">Thực nhận = Số tiền rút − Phí rút.${(!isPct && val > 0) ? ' Phí cố định nên số tiền rút càng lớn thì % khấu trừ càng thấp.' : ''} Hạn mức mỗi lệnh: từ ${formatVND(minW)} đến ${formatVND(maxW)}.</p>
+                </div>`;
+        }
+
         function updateWithdrawFeeCalc() {
             const rawVal = document.getElementById('withdraw-amount').value.replace(/\D/g, '');
             const amount = parseInt(rawVal, 10) || 0;
@@ -6560,6 +6648,7 @@
             st.withdrawFeeType = type;
             st.withdrawFeeVal = val;
             saveSettings(st);
+            renderWithdrawFeeSchedule();
 
             showToast("Đã lưu cấu hình phí rút tiền!", "success");
         }
