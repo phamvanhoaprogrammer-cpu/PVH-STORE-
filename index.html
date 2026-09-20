@@ -798,6 +798,117 @@
             .site-trial-btn, .site-menu-btn { width: 38px; height: 38px; }
             .site-brand-text { font-size: 15px; }
         }
+
+        /* ===== NÚT DẤU X (ĐÓNG / TẮT / GỠ) TOÀN HỆ THỐNG =====
+           Hình tròn TRẮNG SỮA + chữ X ĐEN ĐẬM. Dấu X được vẽ bằng SVG nền (không phụ thuộc font icon) nên luôn nét,
+           luôn nằm chính giữa và không bị mất khi mạng chậm. Muốn đổi kiểu cho MỌI nút X: chỉ sửa khối này.
+           Kích cỡ: mặc định 34px | .x-close-sm (nhỏ, 26px) | .x-close-lg (lớn, 42px). */
+        .x-close {
+            --x-size: 34px;
+            box-sizing: border-box !important;
+            width: var(--x-size) !important;
+            height: var(--x-size) !important;
+            min-width: var(--x-size) !important;
+            padding: 0 !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            align-self: center;
+            flex-shrink: 0;
+            border-radius: 50% !important;
+            border: 1.5px solid rgba(0, 0, 0, .18) !important;
+            background-color: #fdfcf7 !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7.4 7.4l9.2 9.2M16.6 7.4l-9.2 9.2' fill='none' stroke='%23000' stroke-width='3.6' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            background-size: 100% 100% !important;
+            color: #000 !important;
+            font-size: 0 !important;
+            line-height: 0 !important;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, .10), 0 3px 10px rgba(0, 0, 0, .45);
+            cursor: pointer;
+        }
+        .x-close > i { display: none !important; }
+        .x-close:hover, .x-close:focus-visible {
+            background-color: #ffffff !important;
+            border-color: rgba(0, 0, 0, .35) !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, .22), 0 4px 14px rgba(0, 0, 0, .55);
+            transform: scale(1.1);
+            outline: none;
+        }
+        .x-close:not(:disabled):active { transform: scale(.92); }
+        .x-close-sm { --x-size: 26px; }
+        .x-close-lg { --x-size: 42px; }
+
+        /* ===================== CHI TIẾT ACC (modal tab kiểu LMHT) ===================== */
+        .acd-open-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 8px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#f8e04a;background:rgba(248,224,74,.06);border:1px solid rgba(248,224,74,.45);transition:.15s;cursor:pointer}
+        .acd-open-btn:hover{background:rgba(248,224,74,.16);border-color:#f8e04a}
+        #acc-detail-modal{display:none;position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.92);backdrop-filter:blur(4px)}
+        #acc-detail-modal.open{display:block}
+        .acd-shell{position:relative;height:100%;height:100dvh;max-width:880px;margin:0 auto;display:flex;flex-direction:column;background:#000;color:#e5e7eb;border-left:1px solid #1c1c20;border-right:1px solid #1c1c20;font-family:Roboto,'Segoe UI',system-ui,-apple-system,sans-serif}
+        .acd-head{flex:none;display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #1c1c20;background:#070708}
+        .acd-head h3{flex:1;min-width:0;font-size:14px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .acd-head h3 span{color:#f8e04a}
+        .acd-close{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:#d4d4d8;background:#111113;border:1px solid #2a2a2e;cursor:pointer;flex:none}
+        .acd-close:hover{color:#000;background:#f8e04a;border-color:#f8e04a}
+        .acd-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 24px}
+        .acd-banner{position:relative;aspect-ratio:16/8;overflow:hidden;border:1px solid #26262b;background:#0d0d0f;margin-bottom:22px}
+        .acd-banner img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+        .acd-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.88))}
+        .acd-banner-txt{position:absolute;left:14px;right:14px;bottom:12px;z-index:2}
+        .acd-banner-txt b{display:block;font-size:15px;line-height:1.3;color:#fff;text-shadow:0 1px 6px #000}
+        .acd-chip{display:inline-block;padding:3px 9px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;border:1px solid currentColor;background:rgba(0,0,0,.6);margin-bottom:6px}
+        .acd-tabs{display:flex;flex-wrap:wrap;gap:12px 8px;margin-bottom:26px}
+        .acd-tab{position:relative;display:inline-flex;align-items:center;gap:9px;padding:11px 15px;font-size:15px;line-height:1;background:#0d0d0f;border:2px solid #26262b;color:#c8c8ce;cursor:pointer;transition:background .15s,color .15s;font-family:inherit}
+        .acd-tab:hover{border-color:#4a4a52;color:#fff}
+        .acd-tab.on{background:#f8e04a;border-color:#f8e04a;color:#111;font-weight:600}
+        .acd-tab.on::after{content:'';position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);border:9px solid transparent;border-bottom:0;border-top-color:#f8e04a}
+        .acd-badge{display:inline-block;min-width:34px;text-align:center;padding:4px 11px;font-size:13px;font-weight:800;color:#111;background:#f8e04a;clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 50%,calc(100% - 9px) 100%,9px 100%,0 50%)}
+        .acd-tab.on .acd-badge{background:#111;color:#f8e04a}
+        .acd-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+        .acd-search{flex:1;min-width:0;background:#0d0d0f!important;background-image:none!important;border:1px solid #2a2a2e!important;color:#fff!important;padding:10px 12px!important;font-size:13px!important;line-height:1.2!important;height:auto!important;box-shadow:none!important;outline:none}
+        .acd-search:focus{border-color:#f8e04a}
+        .acd-total{flex:none;font-size:12px;color:#9ca3af;font-weight:700}
+        .acd-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+        @media (min-width:560px){.acd-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+        @media (min-width:760px){.acd-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+        .acd-tile{background:#0d0d0f;border:1px solid #26262b;overflow:hidden;transition:border-color .15s,transform .15s}
+        .acd-tile:hover{border-color:#f8e04a;transform:translateY(-2px)}
+        .acd-thumb{position:relative;width:100%;background:linear-gradient(160deg,#17171b,#0a0a0c);overflow:hidden}
+        .acd-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+        .acd-glyph{display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,hsl(var(--h) 55% 24%),hsl(calc(var(--h) + 45) 65% 9%))}
+        .acd-glyph i{font-size:30px;color:hsl(var(--h) 95% 72%);filter:drop-shadow(0 0 8px hsl(var(--h) 90% 55% / .7))}
+        .acd-dots{position:absolute;left:0;right:0;bottom:5px;display:flex;justify-content:center;gap:4px;z-index:2}
+        .acd-dots i{width:11px;height:11px;border-radius:50%;border:1.5px solid #fff;box-shadow:0 0 4px #000}
+        .acd-name{font-size:11px;line-height:1.25;color:#d4d4d8;text-align:center;padding:6px 5px 7px;min-height:2.9em;word-break:break-word}
+        .acd-name em{display:block;font-style:normal;font-size:10px;color:#71717a;margin-top:2px}
+        .acd-more{display:block;margin:18px auto 0;padding:11px 26px;font-size:13px;font-weight:700;color:#f8e04a;background:transparent;border:1px solid #f8e04a;cursor:pointer}
+        .acd-more:hover{background:#f8e04a;color:#000}
+        .acd-loading,.acd-empty{padding:48px 12px;text-align:center;color:#9ca3af;font-size:13px}
+        .acd-loading i{color:#f8e04a;font-size:22px;display:block;margin-bottom:10px}
+        .acd-sec{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+        .acd-sec::before{content:'';width:4px;height:15px;background:#f8e04a}
+        .acd-rows{border:1px solid #26262b;background:#0a0a0c;margin-bottom:22px}
+        .acd-row{display:flex;justify-content:space-between;gap:14px;padding:11px 14px;font-size:13px;border-top:1px solid #1a1a1e}
+        .acd-row:first-child{border-top:0}
+        .acd-row span{color:#9ca3af}
+        .acd-row b{color:#fff;text-align:right}
+        .acd-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:22px}
+        @media (min-width:560px){.acd-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+        .acd-stat{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 12px;background:#0d0d0f;border:1px solid #26262b;color:#d4d4d8;font-size:13px;cursor:pointer;text-align:left;font-family:inherit}
+        .acd-stat:hover{border-color:#f8e04a;color:#fff}
+        .acd-note{font-size:12px;line-height:1.5;color:#9ca3af;border-left:3px solid #f8e04a;padding:6px 0 6px 10px}
+        .acd-foot{flex:none;display:flex;align-items:center;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid #1c1c20;background:#070708}
+        .acd-price{flex:1;min-width:0;line-height:1.2}
+        .acd-price small{display:block;font-size:11px;color:#71717a;text-decoration:line-through;font-family:ui-monospace,monospace}
+        .acd-price b{display:block;font-size:17px;color:#f8e04a;font-family:ui-monospace,monospace;white-space:nowrap}
+        .acd-btn{padding:12px 16px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;border:1px solid #2a2a2e;background:#111113;color:#e5e7eb;white-space:nowrap}
+        .acd-btn:hover{border-color:#f8e04a}
+        .acd-btn.on{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.5);color:#f87171}
+        .acd-btn.buy{background:#f8e04a;border-color:#f8e04a;color:#111}
+        .acd-btn.buy:hover{background:#ffec6b}
+        .acd-open-btn,.acd-tab,.acd-btn,.acd-close,.acd-more,.acd-stat,.acd-search,.acd-banner,.acd-tile,.acd-rows{border-radius:0!important}
+        .acd-scroll.notinfo .acd-banner{display:none}
     </style>
 </head>
 <body class="bg-corp-bg text-slate-100 font-sans min-h-screen flex flex-col justify-between custom-scrollbar selection:bg-brand-500 selection:text-white" oncontextmenu="return false;">
@@ -813,15 +924,31 @@
         <div class="enterprise-card max-w-3xl w-full max-h-[92vh] flex flex-col border-slate-700">
             <div class="flex items-center justify-between gap-3 border-b border-slate-800 p-4 shrink-0">
                 <h3 class="text-xs font-extrabold text-white uppercase tracking-wider flex items-center"><i class="fa-solid fa-headset text-brand-400 mr-2 text-base"></i> Chi Tiết Phiếu Hỗ Trợ</h3>
-                <button onclick="closeAdminSupportDetail()" aria-label="Đóng" class="w-8 h-8 shrink-0 bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+                <button onclick="closeAdminSupportDetail()" aria-label="Đóng" class="x-close shrink-0"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="support-admin-body" class="p-4 overflow-y-auto custom-scrollbar grow space-y-4"></div>
         </div>
     </div>
 
     <!-- LIGHTBOX MODAL -->
+    <!-- ===== MODAL XEM CHI TIẾT ACC ===== -->
+    <div id="acc-detail-modal" role="dialog" aria-modal="true" aria-label="Chi tiết tài khoản" onclick="if (event.target === this) closeAccDetailModal()">
+        <div class="acd-shell">
+            <div class="acd-head">
+                <h3>Chi tiết acc <span id="acd-head-id"></span></h3>
+                <button type="button" class="acd-close" onclick="closeAccDetailModal()" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="acd-scroll" id="acd-scroll">
+                <div class="acd-banner"><img id="acd-banner-img" src="" alt=""><div class="acd-banner-txt"><span class="acd-chip" id="acd-banner-chip"></span><b id="acd-banner-title"></b></div></div>
+                <div class="acd-tabs" id="acd-tabs"></div>
+                <div id="acd-content"></div>
+            </div>
+            <div class="acd-foot" id="acd-foot"></div>
+        </div>
+    </div>
+
     <div id="lightbox-modal" class="fixed inset-0 z-[90] bg-black/95 backdrop-blur-md hidden flex items-center justify-center p-4" onclick="if (event.target === this) closeLightbox()">
-        <button onclick="closeLightbox()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl bg-slate-900 p-3 border border-slate-700 transition hover:border-brand-500">
+        <button onclick="closeLightbox()" class="x-close x-close-lg absolute top-5 right-5" aria-label="Đóng">
             <i class="fa-solid fa-xmark"></i>
         </button>
         <button id="lightbox-prev" onclick="lightboxStep(-1)" aria-label="Ảnh trước" class="hidden absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 items-center justify-center text-white bg-slate-900/90 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-chevron-left"></i></button>
@@ -836,7 +963,7 @@
         <div class="enterprise-card max-w-lg w-full max-h-[85vh] flex flex-col border-slate-700">
             <div class="flex items-center justify-between gap-3 border-b border-slate-800 p-4">
                 <h3 class="text-xs font-extrabold text-white uppercase tracking-wider flex items-center"><i class="fa-solid fa-envelope text-brand-400 mr-2 text-base"></i> Hộp Thư Thông Báo Hệ Thống</h3>
-                <button onclick="closeSystemInbox()" aria-label="Đóng hộp thư" class="w-8 h-8 shrink-0 bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+                <button onclick="closeSystemInbox()" aria-label="Đóng hộp thư" class="x-close shrink-0"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="sys-inbox-tabs" class="ptabs hidden mx-4 my-2.5"><span class="ptab-pill" aria-hidden="true"></span>
                 <button id="sys-inbox-tab-system" onclick="switchInboxTab('system')" class="ptab is-active">Thông báo hệ thống <span data-inbox-tab-badge="system" class="hidden ml-1 min-w-[16px] h-4 px-1 bg-red-600 text-white text-[10px] font-black font-mono leading-none items-center justify-center">0</span></button>
@@ -858,7 +985,7 @@
                     <span class="text-[10px] font-extrabold text-brand-400 uppercase tracking-widest block"><i class="fa-solid fa-headset mr-1"></i> Trung Tâm Trợ Giúp</span>
                     <h3 class="text-xs font-extrabold text-white uppercase tracking-wider flex items-center mt-0.5"><i class="fa-solid fa-life-ring text-brand-400 mr-2 text-base"></i> Hỗ Trợ 24/7</h3>
                 </div>
-                <button onclick="closeSupportTicketModal()" aria-label="Đóng" class="w-8 h-8 shrink-0 bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+                <button onclick="closeSupportTicketModal()" aria-label="Đóng" class="x-close shrink-0"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
             <div class="p-4 space-y-5 overflow-y-auto custom-scrollbar grow">
@@ -923,7 +1050,7 @@
     <!-- MODAL THANH TOÁN MUA ACC -->
     <div id="buy-checkout-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-5 relative border-slate-700">
-            <button onclick="closeBuyCheckoutModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeBuyCheckoutModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             
             <div class="border-b border-slate-800 pb-3">
                 <span class="text-[10px] font-extrabold text-brand-400 uppercase tracking-widest block"><i class="fa-solid fa-shield-halved mr-1"></i> Giao Dịch An Toàn</span>
@@ -962,7 +1089,7 @@
     <!-- MODAL ĐẶT CỌC ACC -->
     <div id="acc-deposit-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-5 relative border-slate-700 max-h-[92vh] overflow-y-auto custom-scrollbar">
-            <button onclick="closeAccDepositModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeAccDepositModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
 
             <div class="border-b border-slate-800 pb-3 pr-10">
                 <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-widest block"><i class="fa-solid fa-lock mr-1"></i> Giữ acc trước · trả nốt sau</span>
@@ -999,7 +1126,7 @@
     <!-- MODAL GIỎ HÀNG -->
     <div id="cart-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-lg w-full space-y-4 relative border-slate-700">
-            <button onclick="closeCartModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeCartModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             
             <div class="border-b border-slate-800 pb-3">
                 <span class="text-[10px] font-extrabold text-brand-400 uppercase tracking-widest block"><i class="fa-solid fa-basket-shopping mr-1"></i> Quản Lý Đơn Hàng</span>
@@ -1039,7 +1166,7 @@
     <!-- MODAL CÀI ĐẶT NẠP / RÚT CHO THÀNH VIÊN -->
     <div id="user-txn-rule-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="enterprise-card p-6 md:p-8 max-w-lg w-full space-y-4 relative border-slate-700 my-auto">
-            <button type="button" onclick="closeUserTxnRuleModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button type="button" onclick="closeUserTxnRuleModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="font-extrabold text-sm text-white tracking-wide flex items-center uppercase border-b border-slate-800 pb-3 pr-12"><i class="fa-solid fa-sliders mr-2 text-amber-400"></i> <span id="utr-modal-title">Cài Đặt Nạp / Rút</span></h3>
             <form onsubmit="saveUserTxnRuleModal(event)" class="space-y-4">
                 <input type="hidden" id="utr-target">
@@ -1103,7 +1230,7 @@
     <!-- MODAL GHI CHÚ DUYỆT NẠP -->
     <div id="deposit-note-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-4 relative border-slate-700">
-            <button onclick="closeDepositNoteModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeDepositNoteModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             <h3 id="deposit-modal-title" class="font-extrabold text-sm text-white tracking-wide flex items-center uppercase border-b border-slate-800 pb-3"><i class="fa-solid fa-pen-to-square mr-2 text-brand-500"></i> Ghi Chú Duyệt Nạp Tiền</h3>
             <div class="space-y-3.5">
                 <input type="hidden" id="modal-deposit-id">
@@ -1124,7 +1251,7 @@
     <!-- MODAL GHI CHÚ RÚT TIỀN -->
     <div id="withdraw-note-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-4 relative border-slate-700">
-            <button onclick="closeWithdrawNoteModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeWithdrawNoteModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             <h3 id="withdraw-modal-title" class="font-extrabold text-sm text-white tracking-wide flex items-center uppercase border-b border-slate-800 pb-3"><i class="fa-solid fa-pen-to-square mr-2 text-brand-500"></i> Ghi Chú Duyệt Rút Tiền</h3>
             <div class="space-y-3.5">
                 <input type="hidden" id="modal-withdraw-id">
@@ -1145,7 +1272,7 @@
     <!-- MODAL GHI CHÚ DUYỆT ĐƠN ĐĂNG KÝ ADMIN TRẢI NGHIỆM -->
     <div id="trial-order-note-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-4 relative border-slate-700">
-            <button onclick="closeTrialOrderNoteModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeTrialOrderNoteModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             <h3 id="trial-order-modal-title" class="font-extrabold text-sm text-white tracking-wide flex items-center uppercase border-b border-slate-800 pb-3"><i class="fa-solid fa-user-clock mr-2 text-brand-500"></i> Duyệt Đơn Đăng Ký Admin Trải Nghiệm</h3>
             <div class="space-y-3.5">
                 <input type="hidden" id="modal-trial-order-id">
@@ -1165,7 +1292,7 @@
     <!-- MODAL SỬA TÀI KHOẢN ADMIN TRẢI NGHIỆM ĐANG HOẠT ĐỘNG -->
     <div id="edit-trial-live-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-4 relative border-amber-500/40">
-            <button onclick="closeEditTrialLiveModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeEditTrialLiveModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="font-extrabold text-sm text-white tracking-wide flex items-center uppercase border-b border-slate-800 pb-3"><i class="fa-solid fa-user-pen mr-2 text-amber-400"></i> Sửa Tài Khoản Admin Trải Nghiệm</h3>
             <form onsubmit="saveEditTrialLiveModal(event)" class="space-y-3.5">
                 <input type="hidden" id="edit-trial-live-order-id">
@@ -1193,7 +1320,7 @@
     <!-- MODAL SỬA USER -->
     <div id="edit-user-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-4 relative border-slate-700">
-            <button onclick="closeEditUserModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeEditUserModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="font-extrabold text-sm text-white tracking-wide flex items-center uppercase border-b border-slate-800 pb-3"><i class="fa-solid fa-user-pen mr-2 text-brand-500"></i> Sửa Tài Khoản Thành Viên</h3>
             <form onsubmit="saveUserEditModal(event)" class="space-y-3.5">
                 <input type="hidden" id="edit-user-original-phone">
@@ -1220,7 +1347,7 @@
     <!-- MODAL TẠO TÀI KHOẢN ADMIN / USER MỚI -->
     <div id="create-user-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-4 relative border-slate-700">
-            <button onclick="closeCreateUserModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeCreateUserModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="font-extrabold text-sm text-white tracking-wide flex items-center uppercase border-b border-slate-800 pb-3"><i class="fa-solid fa-user-plus mr-2 text-brand-500"></i> Tạo Tài Khoản Mới</h3>
             <form id="create-user-form" onsubmit="handleCreateUserSubmit(event)" class="space-y-3.5">
                 <div>
@@ -1257,7 +1384,7 @@
     <!-- MODAL SỬA ACC -->
     <div id="edit-acc-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-4 relative border-slate-700">
-            <button onclick="closeEditAccModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeEditAccModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="font-extrabold text-sm text-white tracking-wide flex items-center uppercase border-b border-slate-800 pb-3"><i class="fa-solid fa-pen-to-square mr-2 text-brand-500"></i> Cập Nhật Giá Acc Kho</h3>
             <form onsubmit="saveAccEditModal(event)" class="space-y-3.5">
                 <input type="hidden" id="edit-acc-id">
@@ -1293,7 +1420,7 @@
     <!-- MODAL XÁC NHẬN BÁN LẠI ACC CHO ADMIN -->
     <div id="sell-confirm-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-4 relative border-slate-700">
-            <button onclick="closeSellConfirm()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeSellConfirm()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             <div class="border-b border-slate-800 pb-3">
                 <span class="text-[10px] font-extrabold text-rose-400 uppercase tracking-widest block"><i class="fa-solid fa-hand-holding-dollar mr-1"></i> Bán Acc Cho Admin</span>
                 <h3 class="font-extrabold text-base text-white tracking-wide uppercase mt-0.5">Xác Nhận Gửi Yêu Cầu Bán</h3>
@@ -1316,7 +1443,7 @@
     <!-- MODAL THU HỒI ACC (ADMIN): hoàn tiền cho user + bắt buộc nhập lý do -->
     <div id="recall-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="enterprise-card p-6 md:p-8 max-w-md w-full space-y-4 relative border-slate-700">
-            <button onclick="closeRecallModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+            <button onclick="closeRecallModal()" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
             <div class="border-b border-slate-800 pb-3">
                 <span class="text-[10px] font-extrabold text-red-400 uppercase tracking-widest block"><i class="fa-solid fa-rotate-left mr-1"></i> Thu Hồi Acc Của User</span>
                 <h3 class="font-extrabold text-base text-white tracking-wide uppercase mt-0.5">Xác Nhận Thu Hồi &amp; Hoàn Tiền</h3>
@@ -1372,8 +1499,8 @@
         <div class="space-y-6">
             <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                 <span class="font-extrabold text-white text-xs flex items-center tracking-wider uppercase"><i class="fa-solid fa-compass text-brand-400 mr-2"></i> MENU HỆ THỐNG</span>
-                <button onclick="toggleOffCanvasMenu()" class="w-8 h-8 bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500 transition">
-                    <i class="fa-solid fa-xmark text-base"></i>
+                <button onclick="toggleOffCanvasMenu()" class="x-close" aria-label="Đóng">
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
             <div id="offcanvas-user-info" class="p-4 bg-slate-900/60 border border-slate-800 text-xs space-y-1.5"></div>
@@ -1477,7 +1604,7 @@
         <!-- 2. ĐĂNG NHẬP ADMIN -->
         <section id="page-login-admin" class="hidden max-w-md mx-auto py-12">
             <div class="enterprise-card p-8 md:p-10 relative border-slate-700">
-                <button onclick="showPage('home')" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+                <button onclick="showPage('home')" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
                 <div class="text-center mb-8">
                     <div class="inline-flex p-4 bg-brand-500/10 border border-brand-500/30 mb-3">
                         <i class="fa-solid fa-user-shield text-3xl text-brand-400"></i>
@@ -1538,7 +1665,7 @@
             <div class="enterprise-card p-8 md:p-10 relative border-slate-700">
                 <div class="absolute top-4 right-4 flex items-center space-x-2">
                     <button onclick="showPage('home')" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 px-3 py-1.5 transition font-semibold">Trang chủ</button>
-                    <button onclick="showPage('home')" class="text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-800 text-sm"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="showPage('home')" class="x-close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div id="auth-tab-bar" class="auth-tabbar mb-6 mt-4" data-active="login">
                     <span class="auth-tab-pill" aria-hidden="true"></span>
@@ -1637,7 +1764,7 @@
         <!-- 4. TRANG NẠP TIỀN -->
                 <section id="page-deposit" class="hidden max-w-lg mx-auto space-y-6">
             <div class="np-panel np-atm">
-                <button onclick="showPage('home')" class="np-close" title="Đóng"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="showPage('home')" class="x-close np-close" title="Đóng"><i class="fa-solid fa-xmark"></i></button>
                 <div class="np-title"><i class="fa-solid fa-building-columns"></i> Nạp tiền bằng ATM</div>
                 <div class="np-links"><button type="button" onclick="showPage('card-topup')" class="np-link"><i class="fa-solid fa-sim-card mr-1.5"></i> Nạp bằng thẻ cào</button></div>
 
@@ -1681,7 +1808,7 @@
         <!-- 4b. TRANG NẠP TIỀN QUA THẺ CÀO -->
                 <section id="page-card-topup" class="hidden max-w-lg mx-auto space-y-6">
             <div class="np-panel np-card">
-                <button onclick="showPage('deposit')" class="np-close" title="Đóng"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="showPage('deposit')" class="x-close np-close" title="Đóng"><i class="fa-solid fa-xmark"></i></button>
                 <div class="np-title"><i class="fa-solid fa-credit-card"></i> Nạp tiền bằng thẻ cào</div>
                 <div class="np-links"><button type="button" onclick="showPage('deposit')" class="np-link"><i class="fa-solid fa-building-columns mr-1.5"></i> Nạp bằng ATM</button><button type="button" onclick="showPage('card-topup-history')" class="np-link"><i class="fa-solid fa-clock-rotate-left mr-1.5"></i> Lịch sử nạp thẻ</button></div>
 
@@ -1714,7 +1841,7 @@
         <!-- 4b. LỊCH SỬ NẠP THẺ CÀO (mục riêng) -->
         <section id="page-card-topup-history" class="hidden max-w-3xl mx-auto space-y-6">
             <div class="enterprise-card p-8 md:p-10 relative space-y-5 border-slate-700">
-                <button onclick="showPage('card-topup')" title="Quay lại nạp thẻ" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+                <button onclick="showPage('card-topup')" title="Quay lại nạp thẻ" class="x-close absolute top-6 right-6"><i class="fa-solid fa-xmark"></i></button>
                 <div class="border-b border-slate-800 pb-4 pr-12">
                     <span class="text-[10px] font-extrabold text-purple-400 uppercase tracking-widest block">Nạp Tiền Qua Thẻ Cào</span>
                     <h2 class="text-xl font-black text-white flex items-center tracking-wide uppercase mt-0.5"><i class="fa-solid fa-clock-rotate-left mr-2.5 text-purple-400"></i> LỊCH SỬ NẠP THẺ CÀO</h2>
@@ -1737,7 +1864,7 @@
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 <div class="lg:col-span-5 enterprise-card p-8 md:p-10 relative space-y-6 border-slate-700">
-                    <button onclick="showPage('home')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+                    <button onclick="showPage('home')" class="x-close absolute top-6 right-6" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
                     <div>
                         <span class="text-xs font-extrabold text-slate-400 uppercase tracking-widest block mb-1">Tài chính cá nhân</span>
                         <h2 class="text-xl md:text-2xl font-black text-white flex items-center tracking-wide uppercase"><i class="fa-solid fa-building-columns mr-2.5 text-brand-400"></i> Rút tiền về Tài khoản ngân hàng</h2>
@@ -1899,7 +2026,7 @@
         <!-- 6B. TRANG ĐĂNG KÝ TÀI KHOẢN ADMIN TRẢI NGHIỆM -->
         <section id="page-trial-register" class="hidden max-w-3xl mx-auto space-y-6">
             <div class="enterprise-card p-8 md:p-10 relative border-slate-700">
-                <button onclick="showPage('home')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+                <button onclick="showPage('home')" class="x-close absolute top-6 right-6" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
                 <div class="flex justify-between items-center mb-6 flex-wrap gap-3 border-b border-slate-800 pb-4">
                     <div>
                         <span class="text-[10px] font-extrabold text-brand-400 uppercase tracking-widest block">Trải Nghiệm Quyền Quản Trị</span>
@@ -1966,7 +2093,7 @@
         <!-- 6D. TRANG ĐĂNG NHẬP ADMIN TRẢI NGHIỆM -->
         <section id="page-trial-admin-login" class="hidden max-w-md mx-auto py-12">
             <div class="enterprise-card p-8 md:p-10 relative border-amber-500/40">
-                <button onclick="showPage('home')" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
+                <button onclick="showPage('home')" class="x-close absolute top-4 right-4" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
                 <div class="text-center mb-8">
                     <div class="inline-flex p-4 bg-amber-500/10 border border-amber-500/30 mb-3">
                         <i class="fa-solid fa-user-clock text-3xl text-amber-400"></i>
@@ -3146,7 +3273,7 @@
     </footer>
 
     <!-- JAVASCRIPT APP ENGINE -->
-    <script>
+    <script type="text/plain" id="pvh-app-src">
         // Chế độ sáng đã được loại bỏ vĩnh viễn — trang luôn dùng giao diện Tối mặc định (class "dark" trên <html>).
 
         // --- TỐI ƯU HIỆU NĂNG: debounce dùng cho ô tìm kiếm trong kho acc lớn, tránh việc
@@ -3359,7 +3486,7 @@
                 ];
                 localStorage.setItem('users', JSON.stringify(defaultUsers));
             }
-            if (!localStorage.getItem('accounts')) {
+            if (!PVH_ACC.has('accounts')) {
                 const sampleAccs = [
                     {
                         id: 'ACC10001',
@@ -3390,7 +3517,7 @@
                         boughtBy: null
                     }
                 ];
-                localStorage.setItem('accounts', JSON.stringify(sampleAccs));
+                PVH_ACC.write('accounts', sampleAccs);
             }
             if (!localStorage.getItem('deposits')) {
                 localStorage.setItem('deposits', JSON.stringify([]));
@@ -3488,19 +3615,44 @@
         // trong 1 lượt render (grid, bảng admin, thống kê...).
         let _accountsCache = null;
         let _accountsCacheKey = null;
+        // KHO ACC KHÔNG GIỚI HẠN: dữ liệu nằm trong IndexedDB (xem khối PVH_ACC ở cuối file), không còn bị giới hạn ~5MB của localStorage.
+        // getAccounts() đọc từ RAM (đã nạp sẵn lúc mở trang) — saveAccounts() cập nhật RAM rồi ghi xuống đĩa ngay sau đó.
         function getAccounts() {
             const key = accountsStorageKey();
             if (_accountsCache && _accountsCacheKey === key) return _accountsCache;
             _accountsCacheKey = key;
-            _accountsCache = JSON.parse(localStorage.getItem(key)) || [];
+            _accountsCache = PVH_ACC.read(key);
             return _accountsCache;
         }
         function saveAccounts(accs) {
             const key = accountsStorageKey();
-            localStorage.setItem(key, JSON.stringify(accs));
+            PVH_ACC.write(key, accs);
             _accountsCacheKey = key;
             _accountsCache = accs;
         }
+        // Ghi xuống đĩa thất bại (thường chỉ khi ổ đĩa của máy đã hết chỗ thật sự)
+        PVH_ACC.onError = function (err) {
+            const full = err && (err.name === 'QuotaExceededError' || /quota/i.test(String(err.message || '')));
+            showToast(full
+                ? 'Ổ đĩa của thiết bị đã hết dung lượng nên chưa lưu được kho acc! Hãy giải phóng bớt dung lượng máy — hệ thống sẽ tự thử lưu lại.'
+                : 'Chưa lưu được kho acc xuống bộ nhớ trình duyệt. Hệ thống sẽ tự thử lưu lại — đừng đóng trang vội!', 'error');
+        };
+        // Tab khác vừa sửa kho acc -> bỏ cache và vẽ lại phần đang hiển thị (giữ nguyên bộ lọc + trang hiện tại)
+        PVH_ACC.onChange = function (key) {
+            if (key !== accountsStorageKey()) return;
+            _accountsCache = null; _accountsCacheKey = null;
+            try {
+                const home = document.getElementById('page-home');
+                if (home && !home.classList.contains('hidden') && document.getElementById('account-grid')) {
+                    const p = accountGridPage;
+                    filterAccounts();
+                    accountGridPage = p;
+                    renderAccountGrid(_accountGridSource);
+                }
+                const tb = document.getElementById('admin-accounts-table');
+                if (tb && tb.offsetParent) renderAdminAccountsTable();
+            } catch (e) { console.error(e); }
+        };
 
         function getDeposits() { return JSON.parse(localStorage.getItem('deposits')) || []; }
         function saveDeposits(deps) { localStorage.setItem('deposits', JSON.stringify(deps)); }
@@ -3646,7 +3798,7 @@
                         <button onclick="switchToSession(${i})" class="flex-grow flex items-center justify-between text-left px-3 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/50 text-xs font-bold text-white transition">
                             <span class="truncate mr-2"><i class="fa-solid fa-user mr-2 ${trial ? 'text-amber-400' : 'text-brand-400'}"></i>${escHtml(x.username)}</span>${badge}
                         </button>
-                        <button onclick="removeLinkedSession(${i})" title="Gỡ khỏi danh sách" class="px-2.5 bg-slate-900 hover:bg-red-500/10 border border-slate-800 hover:border-red-500/40 text-slate-500 hover:text-red-400 text-xs transition"><i class="fa-solid fa-xmark"></i></button>
+                        <button onclick="removeLinkedSession(${i})" title="Gỡ khỏi danh sách" class="x-close x-close-sm"><i class="fa-solid fa-xmark"></i></button>
                     </div>`;
             }).join('');
 
@@ -3952,7 +4104,7 @@
                             <p class="text-[12.5px] font-medium text-slate-100 mt-1 leading-relaxed break-words">${escHtml(n.message)}</p>
                             <div class="text-[10px] text-slate-500 font-mono mt-1.5">${escHtml(new Date(n.createdAt).toLocaleString('vi-VN'))}</div>
                         </div>
-                        <button onclick="dismissNotification('${id}')" aria-label="Đóng thông báo" class="shrink-0 text-slate-500 hover:text-white p-1 transition"><i class="fa-solid fa-xmark"></i></button>
+                        <button onclick="dismissNotification('${id}')" aria-label="Đóng thông báo" class="x-close x-close-sm shrink-0"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                     <div class="flex gap-2 mt-3">
                         ${n.page ? `<button onclick="openNotification('${id}')" class="flex-1 bg-brand-500 hover:bg-brand-600 text-white font-extrabold py-2 text-[11px] transition">Xem chi tiết</button>` : ''}
@@ -4596,7 +4748,7 @@
             list.innerHTML = _supportTicketImages.map((src, i) => `
                 <div class="relative">
                     <img src="${src}" class="h-20 w-20 object-cover border border-slate-700" alt="Ảnh đính kèm ${i + 1}">
-                    <button type="button" onclick="removeSupportTicketImage(${i})" aria-label="Xóa ảnh" class="absolute -top-2 -right-2 w-5 h-5 bg-red-500 hover:bg-red-600 text-white flex items-center justify-center text-[10px]"><i class="fa-solid fa-xmark"></i></button>
+                    <button type="button" onclick="removeSupportTicketImage(${i})" aria-label="Xóa ảnh" class="x-close x-close-sm absolute -top-2 -right-2"><i class="fa-solid fa-xmark"></i></button>
                 </div>`).join('');
         }
         // Không truyền tham số = xóa tất cả ảnh đang chọn
@@ -5602,6 +5754,8 @@
                                 </div>
                             </div>
 
+                            <button type="button" onclick="openAccDetailModal('${acc.id}')" class="acd-open-btn"><i class="fa-solid fa-eye"></i> Xem chi tiết acc</button>
+
                             <div class="grid grid-cols-2 gap-2">
                                 <button onclick="toggleCartItem('${acc.id}')" class="${isCartAdded ? 'bg-red-500/20 text-red-400 border-red-500/40' : 'bg-slate-900 text-slate-200 border-slate-800 hover:border-brand-500'} border font-extrabold py-2.5 text-xs uppercase tracking-wider transition flex items-center justify-center">
                                     <i class="fa-solid ${isCartAdded ? 'fa-cart-xmark' : 'fa-cart-plus'} mr-1.5"></i> ${isCartAdded ? 'Bỏ Giỏ' : 'Thêm Giỏ'}
@@ -5838,6 +5992,401 @@
             showPage('history');
         }
 
+        // =====================================================================================
+        // XEM CHI TIẾT ACC — bấm "Xem chi tiết acc" ở thẻ acc để mở bảng tab:
+        // THÔNG TIN / TƯỚNG / TRANG PHỤC / Sàn đấu / Chưởng lực / Linh thú / Mẫu mắt / Đa sắc / Biểu Cảm / Biểu tượng.
+        // Dữ liệu được sinh NGẪU NHIÊN nhưng CỐ ĐỊNH theo mã acc (cùng 1 acc luôn ra cùng 1 kết quả),
+        // tướng / trang phục / biểu tượng lấy thật từ kho Data Dragon của LMHT (Riot).
+        // Muốn hiển thị số liệu thật cho 1 acc: gán acc.detail = { level, be, rp, matches, winrate } (tuỳ chọn).
+        // =====================================================================================
+        const ACD_CDN = 'https://ddragon.leagueoflegends.com';
+        const ACD_PAGE = 36;
+        const ACD_RANKS = ['Sắt', 'Đồng', 'Bạc', 'Vàng', 'Bạch Kim', 'Lục Bảo', 'Kim Cương', 'Cao Thủ', 'Đại Cao Thủ', 'Thách Đấu'];
+        const ACD_RANK_COLORS = ['#9ca3af', '#c47a3d', '#cbd5e1', '#f5c542', '#4fd1c5', '#34d399', '#60a5fa', '#c084fc', '#f87171', '#fbbf24'];
+        const ACD_TABS = [
+            { key: 'info',   label: 'THÔNG TIN' },
+            { key: 'champs', label: 'TƯỚNG',      search: 'tên tướng' },
+            { key: 'skins',  label: 'TRANG PHỤC', search: 'tên trang phục / tướng' },
+            { key: 'arena',  label: 'Sàn đấu',    search: 'tên sàn đấu' },
+            { key: 'boom',   label: 'Chưởng lực', search: 'tên chưởng lực' },
+            { key: 'pet',    label: 'Linh thú',   search: 'tên linh thú' },
+            { key: 'ward',   label: 'Mẫu mắt',    search: 'tên mẫu mắt', paren: true },
+            { key: 'chroma', label: 'Đa sắc',     search: 'tên trang phục', paren: true },
+            { key: 'emote',  label: 'Biểu Cảm',   search: 'tên biểu cảm', paren: true },
+            { key: 'icon',   label: 'Biểu tượng', search: 'mã biểu tượng', paren: true }
+        ];
+        const ACD_ARENA_THEMES = ['Đền Thờ Cổ', 'Sân Bay Bão Tố', 'Vườn Thiên Đường', 'Hoàng Hôn Noxus', 'Rừng Anh Đào', 'Piltover Rực Rỡ', 'Tuyết Sương Freljord', 'Đảo Bóng Tối', 'Hẻm Núi Ionia', 'Sa Mạc Shurima', 'Thành Phố Zaun', 'Vực Sâu Bilgewater', 'Lâu Đài Demacia', 'Đầm Lầy Cổ Thụ', 'Thiên Hà Lấp Lánh', 'Núi Lửa Mun Đỏ', 'Cung Điện Băng', 'Trạm Không Gian', 'Hồ Sen Ánh Trăng', 'Chiến Trường Huyền Thoại'];
+        const ACD_ARENA_STYLES = ['Tiêu Chuẩn', 'Ánh Vàng', 'Hư Ảo', 'Băng Giá', 'Liệt Hỏa', 'Bình Minh', 'Dạ Quang', 'Hextech'];
+        const ACD_ARENA_ICONS = ['fa-chess-board', 'fa-mountain-sun', 'fa-tower-observation', 'fa-water', 'fa-tree', 'fa-snowflake'];
+        const ACD_BOOM_FX = ['Nổ Sao Băng', 'Bùng Nổ Hextech', 'Sóng Ma Thuật', 'Tia Sét Xanh', 'Pháo Hoa Rực Rỡ', 'Vụ Nổ Hư Không', 'Bão Cánh Hoa', 'Lốc Lửa', 'Sóng Thần Nhỏ', 'Chớp Điện Từ', 'Sao Rơi', 'Xung Kích Rồng'];
+        const ACD_BOOM_COLORS = [['Đỏ', 0], ['Cam', 25], ['Vàng', 50], ['Lục', 130], ['Lam', 210], ['Tím', 270], ['Hồng', 320], ['Ngọc', 175]];
+        const ACD_BOOM_ICONS = ['fa-burst', 'fa-bolt', 'fa-explosion', 'fa-star', 'fa-fire-flame-curved', 'fa-wand-magic-sparkles'];
+        const ACD_PET_SPECIES = ['Hauntling', 'Featherknight', 'Furyhorn', 'Molediver', 'Pengu', 'Rascal', 'Choncc', 'Dango', 'Gemmy', 'Tocker', 'Nomsy', 'Beezie', 'Bloop', 'Bubblebum', 'Frostbite', 'Ao Shin', 'Duckbill', 'Hexy', 'Sparkfin', 'Lumi', 'Rồng Con', 'Mèo Mây', 'Cáo Lửa', 'Sóc Sao'];
+        const ACD_PET_VARIANTS = ['Cơ Bản', 'Bạc', 'Vàng', 'Bạch Kim', 'Kim Cương', 'Hắc Ám', 'Băng', 'Lửa', 'Rừng', 'Biển', 'Hoa', 'Sao', 'Mặt Trăng', 'Cổ Điển', 'Hextech', 'Huyền Thoại'];
+        const ACD_PET_ICONS = ['fa-paw', 'fa-dragon', 'fa-dove', 'fa-fish', 'fa-ghost', 'fa-cat', 'fa-dog', 'fa-hippo', 'fa-otter', 'fa-frog', 'fa-horse'];
+        const ACD_WARD_TYPES = ['Mắt Cổ Ngữ', 'Mắt Poro', 'Mắt Hải Tặc', 'Mắt Vũ Trụ', 'Mắt Hoa Sen', 'Mắt Rồng', 'Mắt Hextech', 'Mắt Tinh Linh', 'Mắt Nguyệt Thực', 'Mắt Sương Giá', 'Mắt Địa Ngục', 'Mắt Cú Đêm', 'Mắt Ma Thuật', 'Mắt Ngọc Bích'];
+        const ACD_WARD_TIERS = ['Thường', 'Bạc', 'Vàng', 'Huyền Thoại'];
+        const ACD_EMOTE_BASE = ['Poro Vui Vẻ', 'Cười Tít Mắt', 'Giơ Ngón Cái', 'Khóc Ròng', 'Tức Giận', 'Ngạc Nhiên', 'Thả Tim', 'Nháy Mắt', 'Vỗ Tay', 'Nhảy Múa', 'Cúi Chào', 'Hoan Hô', 'Ngủ Gật', 'Suy Nghĩ', 'Bó Tay', 'Cười Khẩy', 'Đầu Hàng', 'Chúc Mừng', 'Cố Lên', 'Lườm'];
+        const ACD_EMOTE_STYLES = ['Poro', 'Tướng', 'Hextech', 'Chibi', 'Neon', 'Vàng'];
+        const ACD_EMOTE_ICONS = ['fa-face-smile', 'fa-face-laugh-beam', 'fa-face-grin-stars', 'fa-face-angry', 'fa-face-sad-cry', 'fa-face-surprise', 'fa-face-kiss-wink-heart', 'fa-face-grin-tongue', 'fa-thumbs-up', 'fa-hands-clapping', 'fa-heart', 'fa-face-meh'];
+
+        let _acdAcc = null, _acdTab = 'info', _acdQ = '', _acdShown = ACD_PAGE, _acdList = [], _acdToken = 0;
+        let _acdVer = null, _acdChampPromise = null, _acdIconPromise = null;
+        const _acdCountCache = {}, _acdListCache = {}, _acdActual = {};
+
+        // ---------- Sinh số ngẫu nhiên CỐ ĐỊNH theo seed (mã acc) ----------
+        function acdHash(str) { let h = 2166136261 >>> 0; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+        function acdRng(seed) {
+            let a = acdHash(String(seed));
+            return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+        }
+        function acdInt(r, min, max) { return Math.floor(r() * (max - min + 1)) + min; }
+        function acdShuffle(arr, r) { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+        function acdEsc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+        function acdNorm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase(); }
+        function acdClamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
+        function acdFmt(n) { return Number(n).toLocaleString('vi-VN'); }
+
+        function acdRankIndex(acc) {
+            const tiers = (typeof VIP_TIERS !== 'undefined') ? VIP_TIERS : [];
+            let t = acc.vip ? tiers.find(x => x.vip === Number(acc.vip)) : null;
+            if (!t) t = tiers.find(x => x.rank === acc.rank);
+            if (t) return t.vip - 1;
+            const i = ACD_RANKS.indexOf(acc.rank);
+            return i >= 0 ? i : 4;
+        }
+
+        // Số lượng từng mục (dùng chung cho nhãn tab và nội dung)
+        function acdCounts(acc) {
+            if (_acdCountCache[acc.id]) return _acdCountCache[acc.id];
+            const r = acdRng(acc.id + ':counts');
+            const idx = acdRankIndex(acc), f = idx / 9;
+            const tiers = (typeof VIP_TIERS !== 'undefined') ? VIP_TIERS : [];
+            const tier = tiers[idx];
+            const title = String(acc.title || '');
+            const mC = title.match(/(\d+)\s*(?:tướng|tuong)/i);
+            const mS = title.match(/(\d+)\s*(?:skin|trang\s*phục)/i);
+            // rút tất cả số ngẫu nhiên theo thứ tự cố định để kết quả luôn ổn định
+            const rChamp = acdInt(r, tier ? tier.champs[0] : 40, tier ? tier.champs[1] : 110);
+            const rSkin = acdInt(r, tier ? tier.skins[0] : 10, tier ? tier.skins[1] : 40);
+            const c = {
+                champs: acdClamp(Number(acc.champs) || (mC ? +mC[1] : 0) || rChamp, 1, 172),
+                skins: acdClamp(Number(acc.skins) || (mS ? +mS[1] : 0) || rSkin, 0, 1500),
+                arena: acdInt(r, 3 + Math.round(f * 20), 20 + Math.round(f * 100)),
+                boom: acdInt(r, 2 + Math.round(f * 10), 10 + Math.round(f * 60)),
+                pet: acdInt(r, 10 + Math.round(f * 150), 60 + Math.round(f * 320)),
+                ward: acdInt(r, 2 + Math.round(f * 6), 8 + Math.round(f * 36)),
+                chroma: acdInt(r, 0, 2 + Math.round(f * 22)),
+                emote: acdInt(r, 15 + Math.round(f * 20), 40 + Math.round(f * 70)),
+                icon: acdInt(r, 8 + Math.round(f * 30), 30 + Math.round(f * 140))
+            };
+            // không vượt quá số tổ hợp tên có thể sinh
+            c.arena = Math.min(c.arena, ACD_ARENA_THEMES.length * ACD_ARENA_STYLES.length);
+            c.boom = Math.min(c.boom, ACD_BOOM_FX.length * ACD_BOOM_COLORS.length);
+            c.pet = Math.min(c.pet, ACD_PET_SPECIES.length * ACD_PET_VARIANTS.length);
+            c.ward = Math.min(c.ward, ACD_WARD_TYPES.length * ACD_WARD_TIERS.length);
+            c.emote = Math.min(c.emote, ACD_EMOTE_BASE.length * ACD_EMOTE_STYLES.length);
+            c.chroma = Math.min(c.chroma, c.skins);
+            return (_acdCountCache[acc.id] = c);
+        }
+
+        function acdInfo(acc) {
+            const r = acdRng(acc.id + ':info');
+            const ov = acc.detail || {};
+            const idx = acdRankIndex(acc);
+            const div = ['IV', 'III', 'II', 'I'][acdInt(r, 0, 3)];
+            const lp = acdInt(r, 0, 900);
+            const flexIdx = Math.max(0, idx - acdInt(r, 0, 3));
+            const flexDiv = ['IV', 'III', 'II', 'I'][acdInt(r, 0, 3)];
+            const prevIdx = Math.max(0, idx - acdInt(r, 0, 2));
+            const prevDiv = ['IV', 'III', 'II', 'I'][acdInt(r, 0, 3)];
+            const level = acdInt(r, 30 + idx * 20, 90 + idx * 60);
+            const be = Math.round(acdInt(r, 3000, 40000 + idx * 22000) / 10) * 10;
+            const rp = acdInt(r, 0, 30) * 50;
+            const matches = acdInt(r, 300 + idx * 250, 1500 + idx * 700);
+            const winrate = (48 + r() * 8).toFixed(1);
+            const apexText = i => ACD_RANKS[i];
+            const fmtRank = (i, d, points) => i >= 7 ? `${apexText(i)}${points != null ? ' · ' + points + ' LP' : ''}` : `${apexText(i)} ${d}`;
+            return {
+                solo: fmtRank(idx, div, lp),
+                flex: fmtRank(flexIdx, flexDiv, acdInt(r, 0, 500)),
+                prev: fmtRank(prevIdx, prevDiv, null),
+                level: ov.level != null ? ov.level : level,
+                be: ov.be != null ? ov.be : be,
+                rp: ov.rp != null ? ov.rp : rp,
+                matches: ov.matches != null ? ov.matches : matches,
+                winrate: ov.winrate != null ? ov.winrate : winrate
+            };
+        }
+
+        // ---------- Tải dữ liệu LMHT (Data Dragon) ----------
+        async function acdFetchJson(url, ms) {
+            const ctrl = new AbortController();
+            const t = setTimeout(() => ctrl.abort(), ms || 15000);
+            try {
+                const res = await fetch(url, { signal: ctrl.signal });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return await res.json();
+            } finally { clearTimeout(t); }
+        }
+        async function acdGetVersion() {
+            if (_acdVer) return _acdVer;
+            const v = await acdFetchJson(ACD_CDN + '/api/versions.json', 10000);
+            _acdVer = v[0];
+            return _acdVer;
+        }
+        function acdFallbackChamps() {
+            const src = (typeof LMHT_ACC_IMAGES !== 'undefined') ? LMHT_ACC_IMAGES : [];
+            return src.map(u => {
+                const m = String(u).match(/splash\/([^_/]+)_/);
+                const id = m ? m[1] : 'Ahri';
+                return { id, name: id, img: u, skins: [{ num: 1, name: id + ' Skin', chromas: false }] };
+            });
+        }
+        function acdLoadChamps() {
+            if (_acdChampPromise) return _acdChampPromise;
+            _acdChampPromise = (async () => {
+                try {
+                    const ver = await acdGetVersion();
+                    const j = await acdFetchJson(`${ACD_CDN}/cdn/${ver}/data/vi_VN/championFull.json`, 30000);
+                    const list = Object.values(j.data || {}).map(c => ({
+                        id: c.id, name: c.name,
+                        img: `${ACD_CDN}/cdn/${ver}/img/champion/${c.image.full}`,
+                        skins: (c.skins || []).map(s => ({ num: s.num, name: s.name, chromas: !!s.chromas }))
+                    })).sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+                    if (!list.length) throw new Error('empty');
+                    return list;
+                } catch (e) {
+                    console.warn('[Chi tiết acc] Không tải được dữ liệu tướng từ Data Dragon, dùng danh sách dự phòng:', e);
+                    _acdChampPromise = null; // lần mở sau thử tải lại
+                    return acdFallbackChamps();
+                }
+            })();
+            return _acdChampPromise;
+        }
+        function acdLoadIcons() {
+            if (_acdIconPromise) return _acdIconPromise;
+            _acdIconPromise = (async () => {
+                try {
+                    const ver = await acdGetVersion();
+                    const j = await acdFetchJson(`${ACD_CDN}/cdn/${ver}/data/vi_VN/profileicon.json`, 30000);
+                    const list = Object.values(j.data || {}).map(p => ({ id: p.id, img: `${ACD_CDN}/cdn/${ver}/img/profileicon/${p.image.full}` }));
+                    if (!list.length) throw new Error('empty');
+                    return list;
+                } catch (e) {
+                    console.warn('[Chi tiết acc] Không tải được biểu tượng, dùng ô mặc định:', e);
+                    _acdIconPromise = null;
+                    return Array.from({ length: 200 }, (_, i) => ({ id: 1000 + i, img: null }));
+                }
+            })();
+            return _acdIconPromise;
+        }
+
+        // ---------- Dựng danh sách từng tab ----------
+        function acdOwnedChamps(acc, pool) {
+            const n = Math.min(acdCounts(acc).champs, pool.length);
+            return acdShuffle(pool, acdRng(acc.id + ':champs')).slice(0, n);
+        }
+        function acdPickSkins(acc, pool) {
+            const cand = [];
+            acdOwnedChamps(acc, pool).forEach(ch => ch.skins.forEach(s => { if (s.num > 0) cand.push({ ch, s }); }));
+            const n = Math.min(acdCounts(acc).skins, cand.length);
+            return acdShuffle(cand, acdRng(acc.id + ':skins')).slice(0, n)
+                .sort((a, b) => a.ch.name.localeCompare(b.ch.name, 'vi') || a.s.num - b.s.num);
+        }
+        function acdCombos(A, B, r, n, fn) {
+            const all = [];
+            A.forEach((a, i) => B.forEach((b, j) => all.push(fn(a, b, i, j))));
+            return acdShuffle(all, r).slice(0, Math.min(n, all.length));
+        }
+        async function acdBuildList(acc, key) {
+            const cKey = acc.id + ':' + key;
+            if (_acdListCache[cKey]) return _acdListCache[cKey];
+            const c = acdCounts(acc);
+            const r = acdRng(cKey);
+            let out = [];
+            if (key === 'champs') {
+                const pool = await acdLoadChamps();
+                out = acdOwnedChamps(acc, pool).slice().sort((a, b) => a.name.localeCompare(b.name, 'vi')).map(ch => ({ name: ch.name, img: ch.img, ratio: '1/1' }));
+            } else if (key === 'skins') {
+                const pool = await acdLoadChamps();
+                out = acdPickSkins(acc, pool).map(x => ({ name: x.s.name, sub: x.ch.name, img: `${ACD_CDN}/cdn/img/champion/loading/${x.ch.id}_${x.s.num}.jpg`, ratio: '2/3' }));
+            } else if (key === 'chroma') {
+                const pool = await acdLoadChamps();
+                const withChroma = acdPickSkins(acc, pool).filter(x => x.s.chromas);
+                const picked = acdShuffle(withChroma, r).slice(0, c.chroma);
+                out = picked.map(x => {
+                    const rr = acdRng(acc.id + ':cd:' + x.ch.id + x.s.num);
+                    const h = acdInt(rr, 0, 360);
+                    return { name: x.s.name, sub: x.ch.name, img: `${ACD_CDN}/cdn/img/champion/loading/${x.ch.id}_${x.s.num}.jpg`, ratio: '2/3', dots: [h, (h + 120) % 360, (h + 240) % 360] };
+                });
+            } else if (key === 'icon') {
+                const pool = await acdLoadIcons();
+                const n = Math.min(c.icon, pool.length);
+                out = acdShuffle(pool, r).slice(0, n).sort((a, b) => a.id - b.id).map(p => ({ name: 'Biểu tượng #' + p.id, img: p.img, ratio: '1/1', glyph: 'fa-circle-user', hue: (p.id * 47) % 360 }));
+            } else if (key === 'arena') {
+                out = acdCombos(ACD_ARENA_THEMES, ACD_ARENA_STYLES, r, c.arena, (t, s, i, j) => ({ name: `${t} · ${s}`, glyph: ACD_ARENA_ICONS[i % ACD_ARENA_ICONS.length], hue: (i * 37 + j * 13) % 360 }));
+            } else if (key === 'boom') {
+                out = acdCombos(ACD_BOOM_FX, ACD_BOOM_COLORS, r, c.boom, (fx, col, i, j) => ({ name: `${fx} ${col[0]}`, glyph: ACD_BOOM_ICONS[i % ACD_BOOM_ICONS.length], hue: col[1] }));
+            } else if (key === 'pet') {
+                out = acdCombos(ACD_PET_SPECIES, ACD_PET_VARIANTS, r, c.pet, (sp, v, i, j) => ({ name: j === 0 ? sp : `${sp} ${v}`, glyph: ACD_PET_ICONS[i % ACD_PET_ICONS.length], hue: (i * 29 + j * 23) % 360 }));
+            } else if (key === 'ward') {
+                out = acdCombos(ACD_WARD_TYPES, ACD_WARD_TIERS, r, c.ward, (t, tier, i, j) => ({ name: j === 0 ? t : `${t} ${tier}`, glyph: 'fa-eye', hue: (i * 31 + j * 40) % 360 }));
+            } else if (key === 'emote') {
+                out = acdCombos(ACD_EMOTE_BASE, ACD_EMOTE_STYLES, r, c.emote, (b, st, i, j) => ({ name: `${b} · ${st}`, glyph: ACD_EMOTE_ICONS[i % ACD_EMOTE_ICONS.length], hue: (i * 43 + j * 17) % 360 }));
+            }
+            _acdListCache[cKey] = out;
+            _acdActual[cKey] = out.length;
+            return out;
+        }
+
+        // ---------- Giao diện ----------
+        function acdTabCount(key) {
+            if (key === 'info') return null;
+            const known = _acdActual[_acdAcc.id + ':' + key];
+            return known != null ? known : acdCounts(_acdAcc)[key];
+        }
+        function acdRenderTabs() {
+            const box = document.getElementById('acd-tabs');
+            box.innerHTML = ACD_TABS.map(t => {
+                const n = acdTabCount(t.key);
+                const badge = n == null ? '' : `<span class="acd-badge">${t.paren ? '(' + n + ')' : n}</span>`;
+                return `<button type="button" class="acd-tab${_acdTab === t.key ? ' on' : ''}" onclick="acdSetTab('${t.key}')">${t.label}${badge}</button>`;
+            }).join('');
+        }
+        function acdInfoHTML(acc) {
+            const c = acdCounts(acc), inf = acdInfo(acc);
+            const rows = [
+                ['Mã acc', '#' + acdEsc(acc.id)],
+                ['Rank Đơn/Đôi', acdEsc(inf.solo)],
+                ['Rank Linh Hoạt', acdEsc(inf.flex)],
+                ['Rank mùa trước', acdEsc(inf.prev)],
+                ['Cấp độ', acdFmt(inf.level)],
+                ['Máy chủ', 'Việt Nam (VN)'],
+                ['Tinh Hoa Xanh', acdFmt(inf.be)],
+                ['Riot Points (RP)', acdFmt(inf.rp)],
+                ['Số trận đã chơi', acdFmt(inf.matches)],
+                ['Tỉ lệ thắng', inf.winrate + '%']
+            ];
+            const statTabs = ACD_TABS.filter(t => t.key !== 'info');
+            return `
+                <h4 class="acd-sec">Thông tin tài khoản</h4>
+                <div class="acd-rows">${rows.map(x => `<div class="acd-row"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')}</div>
+                <h4 class="acd-sec">Kho đồ trong tài khoản</h4>
+                <div class="acd-stats">${statTabs.map(t => `<button type="button" class="acd-stat" onclick="acdSetTab('${t.key}')"><span>${t.label}</span><span class="acd-badge">${acdFmt(c[t.key])}</span></button>`).join('')}</div>
+                <p class="acd-note">Bấm vào từng mục để xem danh sách chi tiết. Tên đăng nhập &amp; mật khẩu chỉ hiển thị sau khi thanh toán thành công.</p>`;
+        }
+        function acdGridHTML() {
+            const q = acdNorm(_acdQ.trim());
+            const list = q ? _acdList.filter(it => acdNorm(it.name + ' ' + (it.sub || '')).includes(q)) : _acdList;
+            if (!list.length) return { html: `<div class="acd-empty"><i class="fa-regular fa-folder-open" style="font-size:26px;display:block;margin-bottom:8px;color:#52525b"></i>${q ? 'Không tìm thấy kết quả phù hợp.' : 'Tài khoản này chưa có mục nào trong danh sách này.'}</div>`, total: 0 };
+            const show = list.slice(0, _acdShown);
+            const tiles = show.map(it => {
+                const thumb = it.img
+                    ? `<div class="acd-thumb" style="aspect-ratio:${it.ratio || '1/1'}"><img loading="lazy" decoding="async" src="${acdEsc(it.img)}" alt="" onerror="this.style.display='none'">${it.dots ? `<div class="acd-dots">${it.dots.map(h => `<i style="background:hsl(${h} 85% 55%)"></i>`).join('')}</div>` : ''}</div>`
+                    : `<div class="acd-thumb acd-glyph" style="--h:${it.hue || 200};aspect-ratio:1/1"><i class="fa-solid ${it.glyph || 'fa-star'}"></i></div>`;
+                return `<div class="acd-tile">${thumb}<p class="acd-name">${acdEsc(it.name)}${it.sub ? `<em>${acdEsc(it.sub)}</em>` : ''}</p></div>`;
+            }).join('');
+            const left = list.length - show.length;
+            const more = left > 0 ? `<button type="button" class="acd-more" onclick="acdMore()">Xem thêm (${left})</button>` : '';
+            return { html: `<div class="acd-grid">${tiles}</div>${more}`, total: list.length };
+        }
+        function acdDrawGrid() {
+            const box = document.getElementById('acd-list');
+            if (!box) return;
+            const g = acdGridHTML();
+            box.innerHTML = g.html;
+            const tot = document.getElementById('acd-total');
+            if (tot) tot.innerText = g.total + ' mục';
+        }
+        async function acdRenderBody() {
+            const token = ++_acdToken;
+            const box = document.getElementById('acd-content');
+            if (_acdTab === 'info') { box.innerHTML = acdInfoHTML(_acdAcc); return; }
+            const tab = ACD_TABS.find(t => t.key === _acdTab);
+            _acdList = []; _acdShown = ACD_PAGE; _acdQ = '';
+            box.innerHTML = `
+                <div class="acd-toolbar">
+                    <input type="search" class="acd-search" placeholder="Tìm ${acdEsc(tab.search)}..." oninput="acdSearch(this.value)" autocomplete="off">
+                    <span class="acd-total" id="acd-total"></span>
+                </div>
+                <div id="acd-list"><div class="acd-loading"><i class="fa-solid fa-spinner fa-spin"></i>Đang tải dữ liệu LMHT...</div></div>`;
+            const list = await acdBuildList(_acdAcc, _acdTab);
+            if (token !== _acdToken) return; // đã chuyển tab / đóng modal
+            _acdList = list;
+            acdDrawGrid();
+            acdRenderTabs(); // cập nhật số lượng thực tế trên nhãn tab
+        }
+        function acdSetTab(key) {
+            if (!_acdAcc || key === _acdTab && key !== 'info') return;
+            _acdTab = key;
+            document.getElementById('acd-scroll').classList.toggle('notinfo', key !== 'info');
+            acdRenderTabs();
+            acdRenderBody();
+            const tabs = document.getElementById('acd-tabs');
+            const sc = document.getElementById('acd-scroll');
+            if (tabs && sc && sc.scrollTop > tabs.offsetTop) sc.scrollTop = Math.max(0, tabs.offsetTop - 8);
+        }
+        function acdSearch(v) { _acdQ = v || ''; _acdShown = ACD_PAGE; acdDrawGrid(); }
+        function acdMore() { _acdShown += ACD_PAGE; acdDrawGrid(); }
+
+        function acdRenderFoot() {
+            const acc = _acdAcc;
+            if (!acc) return;
+            const isAdmin = isFreeRole();
+            const inCart = getCart().includes(acc.id);
+            const price = isAdmin
+                ? `<small>${formatVND(acc.price)}</small><b>0 đ (FREE)</b>`
+                : `${acc.sale > 0 ? `<small>${formatVND(acc.price)} · -${acc.sale}%</small>` : ''}<b>${formatVND(getEffectivePrice(acc))}</b>`;
+            document.getElementById('acd-foot').innerHTML = `
+                <div class="acd-price">${price}</div>
+                <button type="button" class="acd-btn${inCart ? ' on' : ''}" onclick="acdToggleCart()"><i class="fa-solid ${inCart ? 'fa-cart-arrow-down' : 'fa-cart-plus'}"></i> ${inCart ? 'Bỏ giỏ' : 'Thêm giỏ'}</button>
+                <button type="button" class="acd-btn buy" onclick="acdBuyNow()">Mua ngay</button>`;
+        }
+        function acdToggleCart() {
+            if (!_acdAcc) return;
+            const id = _acdAcc.id;
+            if (!currentUser) closeAccDetailModal(); // toggleCartItem sẽ chuyển sang trang đăng nhập
+            toggleCartItem(id);
+            if (_acdAcc) acdRenderFoot();
+        }
+        function acdBuyNow() {
+            if (!_acdAcc) return;
+            const id = _acdAcc.id;
+            closeAccDetailModal();
+            openBuyCheckoutModal(id);
+        }
+
+        function openAccDetailModal(accId) {
+            const acc = getAccounts().find(a => String(a.id) === String(accId));
+            if (!acc) { showToast('Không tìm thấy tài khoản này!', 'error'); return; }
+            _acdAcc = acc; _acdTab = 'info'; _acdQ = ''; _acdShown = ACD_PAGE; _acdList = [];
+            const img = (acc.images && acc.images[0]) || LMHT_DEFAULT_IMAGE;
+            const idx = acdRankIndex(acc);
+            document.getElementById('acd-head-id').innerText = '#' + acc.id;
+            const bi = document.getElementById('acd-banner-img'); bi.src = img;
+            const chip = document.getElementById('acd-banner-chip');
+            chip.innerText = acc.rank + (acc.vip ? ' · VIP ' + acc.vip : '');
+            chip.style.color = ACD_RANK_COLORS[idx] || '#f8e04a';
+            document.getElementById('acd-banner-title').innerText = acc.title || '';
+            document.getElementById('acd-scroll').classList.remove('notinfo');
+            acdRenderTabs();
+            acdRenderBody();
+            acdRenderFoot();
+            document.getElementById('acc-detail-modal').classList.add('open');
+            document.documentElement.style.overflow = 'hidden';
+            document.getElementById('acd-scroll').scrollTop = 0;
+        }
+        function closeAccDetailModal() {
+            _acdToken++;
+            _acdAcc = null;
+            document.getElementById('acc-detail-modal').classList.remove('open');
+            document.documentElement.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && document.getElementById('acc-detail-modal').classList.contains('open')) closeAccDetailModal();
+        });
+
         // --- CART SYSTEM ---
         function toggleCartItem(accId) {
             // Bắt buộc đăng nhập mới được thêm acc vào giỏ hàng
@@ -6066,7 +6615,7 @@
             try { const l = JSON.parse(localStorage.getItem('accDeposits')); return Array.isArray(l) ? l : []; } catch (e) { return []; }
         }
         function saveAccDeposits(list) { localStorage.setItem('accDeposits', JSON.stringify(list)); }
-        // Đọc lại kho acc từ localStorage (bỏ cache bộ nhớ) cho các thao tác liên quan tiền để tránh dữ liệu cũ
+        // Đọc lại kho acc mới nhất (bỏ cache, lấy bản đang nằm trong bộ nhớ đã đồng bộ với IndexedDB) cho các thao tác liên quan tiền
         function freshAccounts() { _accountsCache = null; return getAccounts(); }
         function clampPct(v, fb) {
             let n = parseFloat(v);
@@ -9652,6 +10201,8 @@
                 let savedTheme = null;
                 try { savedTheme = localStorage.getItem(THEME_KEY); } catch (e) { savedTheme = null; }
                 localStorage.clear();
+                PVH_ACC.clearAll();
+                _accountsCache = null; _accountsCacheKey = null;
                 if (savedTheme) { try { localStorage.setItem(THEME_KEY, savedTheme); } catch (e) { /* bỏ qua */ } }
                 initStorageData();
                 currentUser = null;
@@ -10440,7 +10991,8 @@
 
             saveTrialOrders(orders.filter(o => o.id !== orderId));
             saveTrialPool(getTrialPool().filter(a => a.assignedOrderId !== orderId));
-            localStorage.removeItem('trialAdminAccounts:' + orderId);
+            PVH_ACC.remove('trialAdminAccounts:' + orderId);
+            if (_accountsCacheKey === 'trialAdminAccounts:' + orderId) { _accountsCache = null; _accountsCacheKey = null; }
             forgetSessionKey('trial:' + orderId);
 
             renderAdminTrialActiveAccounts();
@@ -11291,7 +11843,7 @@
         }
 
         // --- INIT APPLICATION ---
-        window.addEventListener('DOMContentLoaded', () => {
+        function pvhAppInit() {
             checkTrialSessionExpiry();
             if (currentUser) rememberSession(currentUser);
             updateUI();
@@ -11317,7 +11869,267 @@
             };
             setInterval(bgTick, 1000);
             document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshAdminWalletLive(); });
-        });
+        }
+        if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', pvhAppInit); else pvhAppInit();
+    </script>
+    <!-- =====================================================================
+         KHO ACC LƯU TRỮ KHÔNG GIỚI HẠN (IndexedDB)
+         Trước đây kho acc nằm trong localStorage (~5MB) nên chỉ vài nghìn acc (hoặc vài tấm ảnh admin upload)
+         là báo "bộ nhớ đầy". Giờ kho acc được lưu trong IndexedDB — chỉ bị giới hạn bởi dung lượng ổ đĩa của máy.
+           - Giữ nguyên API đồng bộ getAccounts()/saveAccounts(): dữ liệu chạy trên RAM, ghi xuống đĩa NGAY sau đó
+             (gộp các lần lưu liên tiếp trong cùng 1 nhịp thành 1 lần ghi).
+           - Chia kho thành các "chunk" 2.000 acc/bản ghi -> kho lớn bao nhiêu cũng không vướng giới hạn kích thước 1 bản ghi.
+           - Tự chuyển dữ liệu cũ trong localStorage sang IndexedDB (chỉ xoá bản cũ SAU KHI đã ghi thành công).
+           - Nhiều tab: tab khác ghi kho -> tab này tự đọc lại (BroadcastChannel).
+           - Trình duyệt không hỗ trợ IndexedDB (hoặc bị chặn) -> tự chạy lại bằng localStorage như cũ.
+         Script app nằm trong <script type="text/plain" id="pvh-app-src"> ở trên và chỉ được chạy SAU khi kho đã nạp xong.
+         ===================================================================== -->
+    <script>
+        (function () {
+            'use strict';
+            var DB_NAME = 'pvh_store', DB_VER = 1, ST = 'kv';
+            var CHUNK = 2000;                                   // số acc trong 1 bản ghi IndexedDB
+            var LEGACY_RE = /^(accounts|trialAdminAccounts:.+)$/;  // các khoá kho acc từng nằm trong localStorage
+
+            var store = Object.create(null);       // khoá -> mảng acc (bản làm việc trên RAM)
+            var known = Object.create(null);       // khoá -> true nếu kho đó đã tồn tại
+            var chunkCount = Object.create(null);  // khoá -> số chunk hiện có trong IndexedDB
+            var dirty = Object.create(null);       // khoá -> true nếu có thay đổi chưa ghi xuống đĩa
+            var db = null, scheduled = false, flushPromise = null, retryTimer = null, lastErrAt = 0, booted = false;
+            var bc = null, tabId = Math.random().toString(36).slice(2);
+
+            var P = window.PVH_ACC = {
+                mode: 'localStorage',   // 'idb' khi IndexedDB sẵn sàng
+                onChange: null,         // (key) => void  — tab khác vừa sửa kho
+                onError: null,          // (err) => void  — ghi xuống đĩa thất bại (thường do ổ đĩa đầy thật sự)
+                has: has, read: read, write: write, remove: remove, clearAll: clearAll, flush: flush
+            };
+
+            function chunkKey(key, i) { return key + '#' + String(i).padStart(6, '0'); }
+            function keyRange(key) { return IDBKeyRange.bound(key + '#', key + '#\uffff'); }
+            function hasDirty() { for (var k in dirty) return true; return false; }
+
+            /* ---------- API dùng cho app ---------- */
+            function has(key) {
+                if (P.mode === 'idb') return !!known[key];
+                try { return localStorage.getItem(key) !== null; } catch (e) { return false; }
+            }
+            function read(key) {
+                if (P.mode === 'idb') return store[key] || (store[key] = []);
+                return JSON.parse(localStorage.getItem(key)) || [];
+            }
+            function write(key, arr) {
+                if (P.mode !== 'idb') { localStorage.setItem(key, JSON.stringify(arr)); return; } // như cũ (có thể ném lỗi khi đầy)
+                store[key] = arr; known[key] = true; dirty[key] = true;
+                schedule();
+            }
+            function remove(key) {
+                try { localStorage.removeItem(key); } catch (e) { /* bỏ qua */ }
+                if (P.mode !== 'idb') return;
+                delete store[key]; delete known[key]; delete dirty[key]; delete chunkCount[key];
+                if (!db) return;
+                try { db.transaction(ST, 'readwrite').objectStore(ST).delete(keyRange(key)); } catch (e) { reportError(e); }
+            }
+            function clearAll() {
+                if (P.mode !== 'idb') return;
+                [store, known, chunkCount, dirty].forEach(function (o) { Object.keys(o).forEach(function (k) { delete o[k]; }); });
+                if (!db) return;
+                try { db.transaction(ST, 'readwrite').objectStore(ST).clear(); } catch (e) { reportError(e); }
+            }
+
+            /* ---------- Ghi xuống IndexedDB ---------- */
+            function schedule() {
+                if (scheduled) return;
+                scheduled = true;
+                Promise.resolve().then(function () { scheduled = false; flush(); }); // gộp mọi lần lưu trong cùng 1 nhịp
+            }
+            function putChunk(os, k, slice) {
+                try { os.put(slice, k); }
+                catch (e) { os.put(JSON.parse(JSON.stringify(slice)), k); } // DataCloneError (hiếm): làm sạch dữ liệu rồi ghi
+            }
+            function writeKeys(keys) {
+                return new Promise(function (resolve, reject) {
+                    var counts = {}, tx;
+                    try {
+                        tx = db.transaction(ST, 'readwrite');
+                        var os = tx.objectStore(ST);
+                        keys.forEach(function (key) {
+                            var arr = store[key] || [];
+                            var n = Math.max(1, Math.ceil(arr.length / CHUNK));
+                            for (var i = 0; i < n; i++) putChunk(os, chunkKey(key, i), arr.slice(i * CHUNK, (i + 1) * CHUNK));
+                            for (var j = n, old = chunkCount[key] || 0; j < old; j++) os.delete(chunkKey(key, j)); // dọn chunk thừa khi kho co lại
+                            counts[key] = n;
+                        });
+                    } catch (e) { try { if (tx) tx.abort(); } catch (_) { /* bỏ qua */ } reject(e); return; }
+                    tx.oncomplete = function () { resolve(counts); };
+                    tx.onabort = tx.onerror = function () { reject(tx.error || new Error('IndexedDB transaction failed')); };
+                });
+            }
+            function flush() {
+                if (P.mode !== 'idb' || !db) return Promise.resolve(true);
+                if (flushPromise) return flushPromise;
+                if (!hasDirty()) return Promise.resolve(true);
+                flushPromise = (async function () {
+                    var ok = true;
+                    while (hasDirty()) {
+                        var keys = Object.keys(dirty);
+                        keys.forEach(function (k) { delete dirty[k]; });
+                        try {
+                            var counts = await writeKeys(keys);
+                            keys.forEach(function (k) { chunkCount[k] = counts[k]; });
+                            broadcast(keys);
+                        } catch (err) {
+                            keys.forEach(function (k) { dirty[k] = true; }); // giữ lại, thử ghi lại sau
+                            reportError(err);
+                            ok = false;
+                            if (!retryTimer) retryTimer = setTimeout(function () { retryTimer = null; schedule(); }, 4000);
+                            break;
+                        }
+                    }
+                    return ok;
+                })().then(function (ok) {
+                    flushPromise = null;
+                    if (ok && hasDirty()) flush(); // có lần lưu chen vào đúng lúc vừa xong
+                    return ok;
+                });
+                return flushPromise;
+            }
+            function reportError(err) {
+                console.error('[PVH] Không ghi được kho acc xuống IndexedDB:', err);
+                var now = Date.now();
+                if (now - lastErrAt < 8000) return;
+                lastErrAt = now;
+                try { if (typeof P.onError === 'function') P.onError(err); } catch (e) { /* bỏ qua */ }
+            }
+
+            /* ---------- Đồng bộ nhiều tab ---------- */
+            function broadcast(keys) {
+                if (!bc) return;
+                try { bc.postMessage({ from: tabId, keys: keys }); } catch (e) { /* bỏ qua */ }
+            }
+            function readRange(key) {
+                return new Promise(function (resolve, reject) {
+                    var rq = db.transaction(ST, 'readonly').objectStore(ST).getAll(keyRange(key));
+                    rq.onsuccess = function () { resolve(rq.result || []); };
+                    rq.onerror = function () { reject(rq.error); };
+                });
+            }
+            async function reloadKey(key) {
+                if (dirty[key] || flushPromise) return; // tab này đang có bản mới chờ ghi -> bản của tab này là bản cuối
+                try {
+                    var chunks = await readRange(key);
+                    if (dirty[key] || flushPromise) return;
+                    if (!chunks.length) { delete store[key]; delete known[key]; delete chunkCount[key]; }
+                    else {
+                        var arr = [];
+                        for (var a = 0; a < chunks.length; a++) if (Array.isArray(chunks[a])) for (var b = 0; b < chunks[a].length; b++) arr.push(chunks[a][b]);
+                        store[key] = arr; known[key] = true; chunkCount[key] = chunks.length;
+                    }
+                    if (typeof P.onChange === 'function') P.onChange(key);
+                } catch (e) { /* bỏ qua, lần đồng bộ sau sẽ đọc lại */ }
+            }
+            function onMsg(ev) {
+                var m = ev && ev.data;
+                if (!m || m.from === tabId || !m.keys) return;
+                m.keys.forEach(reloadKey);
+            }
+
+            /* ---------- Mở DB, nạp kho, chuyển dữ liệu cũ ---------- */
+            function openDb() {
+                return new Promise(function (resolve, reject) {
+                    if (!window.indexedDB) { reject(new Error('Trình duyệt không hỗ trợ IndexedDB')); return; }
+                    var rq;
+                    try { rq = indexedDB.open(DB_NAME, DB_VER); } catch (e) { reject(e); return; }
+                    rq.onupgradeneeded = function () { if (!rq.result.objectStoreNames.contains(ST)) rq.result.createObjectStore(ST); };
+                    rq.onsuccess = function () { resolve(rq.result); };
+                    rq.onerror = function () { reject(rq.error); };
+                });
+            }
+            function loadAll() {
+                return new Promise(function (resolve, reject) {
+                    var tx = db.transaction(ST, 'readonly'), os = tx.objectStore(ST);
+                    var kr = os.getAllKeys(), vr = os.getAll();
+                    tx.oncomplete = function () {
+                        var keys = kr.result || [], vals = vr.result || [], groups = Object.create(null);
+                        for (var i = 0; i < keys.length; i++) {
+                            var k = String(keys[i]), p = k.lastIndexOf('#');
+                            if (p < 0) continue;
+                            (groups[k.slice(0, p)] || (groups[k.slice(0, p)] = [])).push(vals[i]); // getAllKeys đã theo thứ tự chunk
+                        }
+                        Object.keys(groups).forEach(function (sk) {
+                            var ch = groups[sk], arr = [];
+                            for (var a = 0; a < ch.length; a++) if (Array.isArray(ch[a])) for (var b = 0; b < ch[a].length; b++) arr.push(ch[a][b]);
+                            store[sk] = arr; known[sk] = true; chunkCount[sk] = ch.length;
+                        });
+                        resolve();
+                    };
+                    tx.onerror = tx.onabort = function () { reject(tx.error || new Error('Không đọc được IndexedDB')); };
+                });
+            }
+            async function migrateLegacy() {
+                var moved = [];
+                for (var i = 0; i < localStorage.length; i++) {
+                    var k = localStorage.key(i);
+                    if (!LEGACY_RE.test(k) || known[k]) continue;   // đã có bản trong IndexedDB -> không đụng vào
+                    var arr = null;
+                    try { arr = JSON.parse(localStorage.getItem(k)); } catch (e) { arr = null; }
+                    if (!Array.isArray(arr)) continue;
+                    store[k] = arr; known[k] = true; dirty[k] = true; moved.push(k);
+                }
+                if (!moved.length) return;
+                if (await flush()) moved.forEach(function (k) { try { localStorage.removeItem(k); } catch (e) { /* bỏ qua */ } });
+            }
+            function askPersist() {
+                try {
+                    if (navigator.storage && navigator.storage.persist && navigator.storage.persisted) {
+                        navigator.storage.persisted().then(function (p) { if (!p) return navigator.storage.persist(); }).catch(function () { /* bỏ qua */ });
+                    }
+                } catch (e) { /* bỏ qua */ }
+            }
+
+            /* ---------- Khởi động app ---------- */
+            function boot() {
+                if (booted) return;
+                booted = true;
+                var src = document.getElementById('pvh-app-src');
+                var s = document.createElement('script');
+                s.textContent = src.textContent;
+                document.body.appendChild(s);
+            }
+
+            // IndexedDB không phản hồi quá lâu -> chạy bằng localStorage như phiên bản cũ thay vì treo trang.
+            var guard = setTimeout(function () {
+                if (booted) return;
+                console.warn('[PVH] IndexedDB phản hồi quá chậm — chạy chế độ localStorage.');
+                P.mode = 'localStorage'; db = null;
+                boot();
+            }, 6000);
+
+            (async function () {
+                var ready = false;
+                try {
+                    var d = await openDb();
+                    if (booted) { try { d.close(); } catch (e) { /* bỏ qua */ } return; }
+                    db = d;
+                    db.onversionchange = function () { try { db.close(); } catch (e) { /* bỏ qua */ } };
+                    await loadAll();
+                    ready = true;
+                } catch (e) {
+                    console.warn('[PVH] Không dùng được IndexedDB, chuyển về localStorage:', e);
+                    db = null;
+                }
+                if (booted) return;
+                if (ready) {
+                    P.mode = 'idb';
+                    try { bc = new BroadcastChannel('pvh-acc-sync'); bc.onmessage = onMsg; } catch (e) { bc = null; }
+                    try { await migrateLegacy(); } catch (e) { console.warn('[PVH] Chuyển dữ liệu cũ chưa xong:', e); }
+                    document.addEventListener('visibilitychange', function () { if (document.hidden) flush(); });
+                    askPersist();
+                }
+                clearTimeout(guard);
+                boot();
+            })();
+        })();
     </script>
 </body>
 </html>
