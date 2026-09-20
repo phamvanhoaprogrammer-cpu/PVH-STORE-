@@ -209,8 +209,8 @@
             --glow-2: rgba(34, 197, 94, 0.045);
             --grid-line: rgba(255, 255, 255, 0.02);
             --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.45);
-            --card-hover-border: 251 146 60;
-            --card-hover-shadow: 0 12px 35px -8px rgba(249, 115, 22, 0.16);
+            --card-hover-border: 147 197 253;
+            --card-hover-shadow: 0 12px 35px -8px rgba(59, 130, 246, 0.25);
         }
         html.light {
             color-scheme: light;
@@ -281,12 +281,74 @@
             --glow-2: rgba(34, 197, 94, 0.05);
             --grid-line: rgba(15, 23, 42, 0.04);
             --card-shadow: 0 10px 30px -14px rgba(15, 23, 42, 0.14);
-            --card-hover-border: 234 88 12;
-            --card-hover-shadow: 0 12px 35px -10px rgba(234, 88, 12, 0.24);
+            --card-hover-border: 37 99 235;
+            --card-hover-shadow: 0 12px 35px -10px rgba(37, 99, 235, 0.28);
         }
         * { border-radius: 0 !important; }
         .logo-round { border-radius: 9999px !important; border-color: #ffffff !important; box-shadow: 0 0 0 1px rgba(255,255,255,0.35), 0 0 14px rgba(255,255,255,0.25); }
         html.light .logo-round { box-shadow: 0 0 0 1px rgba(15,23,42,0.3), 0 2px 8px rgba(15,23,42,0.25); }
+
+        /* ===== NẠP TIỀN: giao diện game (ATM xanh dương / Thẻ cào tím) ===== */
+        .np-panel{--np-c:#3b82f6;--np-g:rgba(59,130,246,.5);--slate-100:241 245 249;--slate-200:226 232 240;--slate-300:203 213 225;--slate-400:148 163 184;--slate-500:100 116 139;--slate-700:51 65 85;--slate-800:30 41 59;--slate-900:15 23 42;--slate-950:2 6 23;--text-white:255 255 255;--amber-300:252 211 77;--amber-400:251 191 36;--emerald-300:110 231 183;--emerald-400:52 211 153;--purple-400:192 132 252;--red-300:252 165 165;--red-400:248 113 113;--brand-400:52 211 153;position:relative;padding:34px 14px 16px;border-radius:22px!important;background:linear-gradient(180deg,#0a1a40,#050c22);border:2px solid var(--np-c);box-shadow:0 0 24px var(--np-g),inset 0 0 30px var(--np-g);overflow:hidden;color:#e2e8f0}
+        .np-card{--np-c:#a855f7;--np-g:rgba(168,85,247,.5);background:linear-gradient(180deg,#26104a,#0d0623)}
+        .np-panel div[class*="border-slate-"]{border-color:rgba(148,163,255,.3)!important}
+        .np-close{position:absolute;top:12px;right:12px;z-index:2;width:30px;height:30px;border-radius:50%!important;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff}
+        .np-title{display:flex;align-items:center;justify-content:center;gap:10px;margin:4px 34px 12px;padding:10px 12px;border-radius:14px!important;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.3);font-weight:900;font-size:15px;letter-spacing:.05em;color:#fff;text-shadow:0 0 12px var(--np-c);text-transform:uppercase}
+        .np-links{display:flex;justify-content:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+        .np-link{padding:6px 12px;border-radius:999px!important;font-size:11px;font-weight:800;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.28)}
+        .np-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;margin-bottom:10px;border-radius:14px!important;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015));border:1px solid rgba(148,163,255,.28)}
+        .np-col{flex-direction:column;align-items:stretch;gap:8px}
+        .np-lead{flex:0 0 34%}
+        .np-side{flex:1;min-width:0}
+        .np-step{display:inline-block;padding:3px 14px 3px 10px;margin-bottom:6px;border-radius:8px!important;font-size:11px;font-weight:900;text-transform:uppercase;color:#fff;background:linear-gradient(90deg,var(--np-c),transparent)}
+        .np-desc{font-size:13px;font-weight:800;line-height:1.3;color:#f1f5f9}
+        .np-field{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px!important;background:rgba(0,0,0,.35);border:1px solid rgba(148,163,255,.35)}
+        .np-field small{font-size:10px;font-weight:900;color:#cbd5e1;white-space:nowrap}
+        .np-input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font-family:ui-monospace,monospace;font-weight:700;font-size:14px}
+        .np-input::placeholder{color:#64748b;font-weight:500}
+        .np-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;height:58px;padding:2px;border-radius:10px!important;border:2px solid transparent;color:#fff;overflow:hidden;line-height:1.1;opacity:.85;transition:transform .1s}
+        .np-tile.sel{opacity:1;border-color:#fff;box-shadow:0 0 14px rgba(255,255,255,.7)}
+        .np-tn{font-size:9px;font-weight:900;letter-spacing:-.2px}.np-tf{font-size:8px;font-weight:700;margin-top:3px;opacity:.9}
+        .np-c-Viettel{background:#fff;color:#dc2626}.np-c-Mobifone{background:linear-gradient(#ef4444,#b91c1c)}.np-c-Vinaphone{background:linear-gradient(#3b82f6,#1d4ed8)}.np-c-Vietnamobile{background:linear-gradient(#fb923c,#ea580c)}
+        .np-chip{height:38px;border-radius:10px!important;font-size:13px;font-weight:900;color:#fff;background:linear-gradient(180deg,#a21caf,#6b1a6f);border:1px solid rgba(232,121,249,.55)}
+        .np-chip.sel{background:linear-gradient(180deg,#e879f9,#a21caf);border-color:#fff;box-shadow:0 0 14px rgba(232,121,249,.9)}
+        .np-warn{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px!important;border:2px solid #ef4444;background:rgba(127,29,29,.35);box-shadow:0 0 14px rgba(239,68,68,.45)}
+        .np-warn i{font-size:34px;color:#ef4444}.np-warn b{display:block;color:#f87171;font-size:15px;font-weight:900}.np-warn span{font-size:12px;font-weight:800;color:#fff}
+        .np-cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 10px;border-radius:16px!important;font-weight:900;font-size:16px;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,#3b82f6,#1e3a8a);border:2px solid #bae6fd;box-shadow:0 0 18px rgba(56,189,248,.65);text-shadow:0 1px 6px rgba(0,0,0,.5)}
+        .np-cta-hex{border-radius:0!important;border:0;background:linear-gradient(180deg,#67e8f9,#2563eb);clip-path:polygon(5% 0,95% 0,100% 50%,95% 100%,5% 100%,0 50%);font-size:19px;padding:17px 10px}
+        .np-hexwrap{filter:drop-shadow(0 0 10px rgba(56,189,248,.8));margin-top:4px}
+        .np-bonus{margin-top:8px;text-align:center;font-size:12px;font-weight:800;color:#e2e8f0;line-height:1.4}.np-bonus b{color:#8bff3c}.np-bonus small{display:block;font-size:10px;color:#86efac;font-weight:600}
+        .np-qr{background:#fff;padding:6px;border-radius:10px!important;display:flex}
+        .np-row.hidden,.np-note.hidden{display:none!important}
+        .np-note{padding:10px;border-radius:10px!important;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);font-size:11px;margin-bottom:10px}
+
+        /* ===== GIAO DIỆN TOÀN HỆ THỐNG: phong cách game neon giống trang nạp ===== */
+        button,input,select,textarea{border-radius:10px!important}
+        input[type=checkbox],input[type=radio]{border-radius:4px!important}
+        .rounded-full{border-radius:9999px!important}
+        .enterprise-card{border-radius:18px!important;border-width:2px!important;border-style:solid!important}
+        .enterprise-card:not(.fixed):not(.absolute):not(.sticky){position:relative}
+        input:focus,select:focus,textarea:focus{box-shadow:0 0 0 2px rgba(56,189,248,.35),0 0 12px rgba(56,189,248,.35)}
+        button:is(.bg-brand-500,.bg-emerald-500,.bg-emerald-600,.bg-amber-500,.bg-red-500,.bg-red-600,.bg-purple-600,.bg-rose-500){border:2px solid rgba(255,255,255,.55)}
+        button:is(.bg-brand-500,.bg-emerald-500,.bg-emerald-600){background-image:linear-gradient(180deg,#34d399,#047857)}
+        button.bg-amber-500{background-image:linear-gradient(180deg,#fde047,#d97706)}
+        button:is(.bg-red-500,.bg-red-600){background-image:linear-gradient(180deg,#f87171,#b91c1c)}
+        button.bg-purple-600{background-image:linear-gradient(180deg,#c4b5fd,#6d28d9)}
+        button.bg-rose-500{background-image:linear-gradient(180deg,#fb7185,#be123c)}
+        button:is(.bg-brand-500,.bg-emerald-500,.bg-emerald-600,.bg-amber-500,.bg-red-500,.bg-red-600,.bg-purple-600,.bg-rose-500):hover{filter:brightness(1.12)}
+        html:not(.light) body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(900px 420px at 50% -8%,rgba(59,130,246,.24),transparent 65%),radial-gradient(700px 420px at 100% 100%,rgba(168,85,247,.18),transparent 65%)}
+        html:not(.light) .enterprise-card{background-image:linear-gradient(180deg,rgba(30,58,138,.28),rgba(2,6,23,0) 55%);box-shadow:0 0 20px rgba(59,130,246,.5),inset 0 0 28px rgba(99,102,241,.14)}
+        html:not(.light) .enterprise-card:hover{box-shadow:0 0 30px rgba(96,165,250,.7),inset 0 0 32px rgba(99,102,241,.2)}
+        html:not(.light) h1,html:not(.light) .enterprise-card h2{text-shadow:0 0 14px rgba(56,189,248,.4)}
+        html:not(.light) header.sticky{border-bottom:2px solid rgba(59,130,246,.65)!important;box-shadow:0 4px 26px rgba(59,130,246,.3);background-image:linear-gradient(180deg,rgba(30,58,138,.35),transparent)}
+        html:not(.light) footer{border-top:2px solid rgba(59,130,246,.55)!important;box-shadow:0 -6px 26px rgba(59,130,246,.2);background-image:linear-gradient(0deg,rgba(30,58,138,.3),transparent)}
+        html:not(.light) #offcanvas-menu{border-left:2px solid #3b82f6!important;border-radius:22px 0 0 22px!important;box-shadow:-8px 0 32px rgba(59,130,246,.4);background-image:linear-gradient(180deg,rgba(30,58,138,.35),transparent)}
+
+        /* --- giống ảnh mẫu hơn: thanh tiêu đề bo tròn, nhãn "BƯỚC", ô nhập tối, khung con viền tím nhạt --- */
+        .enterprise-card div[class*="border-slate-"]{border-color:rgba(148,163,255,.3)!important}
+        .enterprise-card h2{display:flex;align-items:center;justify-content:center;text-align:center;gap:8px;padding:9px 14px;border-radius:14px!important;background:linear-gradient(180deg,#2563eb,#172554);border:1px solid rgba(255,255,255,.4);color:#fff!important;letter-spacing:.05em;box-shadow:0 0 14px rgba(59,130,246,.45)}
+        .enterprise-card label.block[class*="uppercase"]{display:inline-block;padding:2px 14px 2px 9px;border-radius:8px!important;color:#fff!important;background:linear-gradient(90deg,#3b82f6,rgba(59,130,246,0))}
+        html:not(.light) :is(input:not([type=checkbox]):not([type=radio]):not(.np-input),select,textarea){background-color:rgba(2,6,23,.6)!important;border-color:rgba(148,163,255,.38)!important}
         html { touch-action: manipulation; -webkit-text-size-adjust: 100%; scroll-behavior: auto; }
         body { 
             touch-action: pan-x pan-y; 
@@ -332,8 +394,8 @@
            Áp cho mọi khung, thẻ (.enterprise-card) và các khung div/section có viền xám.
            Giữ nguyên viền màu ngữ nghĩa (vàng cảnh báo, hồng/đỏ nguy hiểm, xanh lá thành công, tím),
            viền chỉ 1 cạnh (đường kẻ, gạch chân, vạch nhấn) và nút / ô nhập. */
-        :root { --frame-border: 249 115 22; --frame-border-hover: 251 146 60; }
-        html.light { --frame-border: 234 88 12; --frame-border-hover: 249 115 22; }
+        :root { --frame-border: 96 165 250; --frame-border-hover: 147 197 253; }
+        html.light { --frame-border: 37 99 235; --frame-border-hover: 59 130 246; }
         .enterprise-card:where(:not([class*="border-amber"], [class*="border-rose"], [class*="border-red"], [class*="border-emerald"], [class*="border-purple"])),
         :where(div, section, aside, article, ul)[class*="border-slate-"]:where(:not([class~="border-b"], [class~="border-t"], [class~="border-l"], [class~="border-r"], [class~="border-x"], [class~="border-y"], [class~="border-0"], [class~="border-dashed"], [class*="border-b-"], [class*="border-t-"], [class*="border-l-"], [class*="border-r-"])) {
             border-color: rgb(var(--frame-border) / 0.7) !important;
@@ -1210,101 +1272,73 @@
         </section>
 
         <!-- 4. TRANG NẠP TIỀN -->
-        <section id="page-deposit" class="hidden max-w-2xl mx-auto space-y-6">
-            <div class="enterprise-card p-8 md:p-10 relative border-slate-700">
-                <button onclick="showPage('home')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
-                <div class="flex justify-between items-center mb-6 flex-wrap gap-3 border-b border-slate-800 pb-4">
-                    <div>
-                        <span class="text-[10px] font-extrabold text-brand-400 uppercase tracking-widest block">Nạp Tiền Tự Động</span>
-                        <h2 class="text-xl font-black text-white flex items-center tracking-wide uppercase mt-0.5"><i class="fa-solid fa-qrcode mr-2.5 text-brand-500"></i> NẠP TIỀN VÀO VI VÍ</h2>
-                    </div>
-                    <button onclick="showPage('card-topup')" class="bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-400 px-3.5 py-2 text-xs font-extrabold transition shrink-0"><i class="fa-solid fa-sim-card mr-1.5"></i> Nạp Bằng Thẻ Cào</button>
+                <section id="page-deposit" class="hidden max-w-lg mx-auto space-y-6">
+            <div class="np-panel np-atm">
+                <button onclick="showPage('home')" class="np-close" title="Đóng"><i class="fa-solid fa-xmark"></i></button>
+                <div class="np-title"><i class="fa-solid fa-building-columns"></i> Nạp tiền bằng ATM</div>
+                <div class="np-links"><button type="button" onclick="showPage('card-topup')" class="np-link"><i class="fa-solid fa-sim-card mr-1.5"></i> Nạp bằng thẻ cào</button></div>
+
+                <div id="deposit-input-box">
+                    <div id="deposit-rule-notice" class="hidden mb-2.5"></div>
+                    <div class="np-row"><div class="np-lead"><span class="np-step">Bước 1</span><div class="np-desc">Quét MÃ QR để lấy thông tin chuyển khoản</div></div>
+                        <div class="np-side flex justify-end"><div class="np-qr"><i class="fa-solid fa-qrcode" style="font-size:72px;color:#0f172a"></i></div></div></div>
+                    <div class="np-row"><div class="np-lead"><span class="np-step">Bước 2</span><div class="np-desc">Điền số tiền cần nạp</div></div>
+                        <div class="np-side"><div class="np-field"><small>SỐ TIỀN NẠP</small><input type="text" id="deposit-amount-formatted" placeholder="VD: 100,000" oninput="formatCurrencyInput(this)" class="np-input text-right"><small>VNĐ</small></div></div></div>
+                    <div class="np-row"><div class="np-lead"><span class="np-step">Bước 3</span><div class="np-desc">Chuyển khoản đúng nội dung</div></div>
+                        <div class="np-side flex items-center justify-center gap-4" style="font-size:38px;color:#dbeafe"><i class="fa-solid fa-building-columns"></i><i class="fa-solid fa-arrow-right" style="font-size:22px"></i><i class="fa-regular fa-circle-check"></i></div></div>
+                    <div class="np-row"><div class="np-lead"><span class="np-step">Bước 4</span><div class="np-desc">Ấn XÁC NHẬN đã chuyển khoản trên shop</div></div>
+                        <div class="np-side"><button onclick="processDepositRequest()" class="np-cta" style="font-size:14px"><i class="fa-solid fa-circle-check"></i> Tiếp tục</button></div></div>
+                    <p class="deposit-bonus-note np-bonus"></p>
                 </div>
 
-                <div id="deposit-input-box" class="space-y-5">
-                    <div id="deposit-rule-notice" class="hidden"></div>
-                    <div>
-                        <label class="block text-xs font-extrabold text-slate-400 mb-2 uppercase tracking-wider">Số tiền nạp vào tài khoản (VNĐ)</label>
-                        <input type="text" id="deposit-amount-formatted" placeholder="VD: 100,000" oninput="formatCurrencyInput(this)" class="w-full bg-slate-950 border border-slate-800 px-4 py-3.5 text-sm text-white outline-none focus:border-brand-500 font-mono font-bold transition">
-                    </div>
-                    <button onclick="processDepositRequest()" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-extrabold py-3.5 text-xs uppercase tracking-wider transition shadow-lg shadow-brand-500/20">
-                        <i class="fa-solid fa-bolt mr-2"></i> Tiếp Tục Nạp Tiền
-                    </button>
-                </div>
-
-                <div id="deposit-qr-box" class="hidden space-y-6 text-center pt-4 border-t border-slate-800 mt-6">
-                    <div class="bg-slate-900 border border-slate-800 px-4 py-3 flex items-center justify-between">
-                        <span class="text-xs text-slate-400 font-extrabold uppercase">Thời gian giữ mã QR:</span>
-                        <span id="qr-countdown-timer" class="text-sm font-black text-amber-400 font-mono">15:59</span>
-                    </div>
-
+                <div id="deposit-qr-box" class="hidden">
+                    <div class="np-row"><span class="np-desc">Thời gian giữ mã QR:</span><span id="qr-countdown-timer" class="font-black text-amber-400 font-mono text-base">15:59</span></div>
                     <div id="qr-container-view">
-                        <div class="bg-white p-4 inline-block border-2 border-brand-500 mb-4 shadow-xl">
-                            <img id="vietqr-img" alt="Mã VietQR" class="w-60 h-60 object-contain mx-auto">
-                        </div>
-                        <div class="bg-slate-950 p-5 border border-slate-800 text-left space-y-3 text-xs md:text-sm font-medium">
-                            <div class="flex justify-between border-b border-slate-800 pb-2"><span class="text-slate-400">Ngân hàng:</span><span id="qr-bank-name" class="font-bold text-white">Techcombank</span></div>
-                            <div class="flex justify-between border-b border-slate-800 pb-2"><span class="text-slate-400">Số tài khoản:</span><span id="qr-acc-number" class="font-bold text-brand-400 font-mono tracking-wider">99999999983868</span></div>
-                            <div class="flex justify-between border-b border-slate-800 pb-2"><span class="text-slate-400">Chủ TK:</span><span id="qr-acc-holder" class="font-bold text-white uppercase">PHAM VAN HOA</span></div>
-                            <div class="flex justify-between border-b border-slate-800 pb-2"><span class="text-slate-400">Số tiền:</span><span id="qr-display-amount" class="font-bold text-amber-400 font-mono text-base">0 đ</span></div>
-                            <div class="flex justify-between"><span class="text-slate-400">Nội dung CK:</span><span id="qr-display-content" class="font-black text-white font-mono bg-slate-900 px-2 py-0.5 border border-slate-700"></span></div>
-                        </div>
+                        <div class="np-row"><div class="np-lead"><span class="np-step">Bước 1</span><div class="np-desc">Quét MÃ QR để lấy thông tin chuyển khoản</div></div>
+                            <div class="np-side flex justify-end"><div class="np-qr"><img id="vietqr-img" alt="Mã VietQR" class="w-36 h-36 object-contain"></div></div></div>
+                        <div class="np-row np-col"><div><span class="np-step">Bước 3</span> <span class="np-desc">Chuyển khoản đúng nội dung</span></div>
+                            <div class="text-xs md:text-sm font-medium space-y-2">
+                                <div class="flex justify-between border-b border-slate-800 pb-2"><span class="text-slate-400">Ngân hàng:</span><span id="qr-bank-name" class="font-bold text-white">Techcombank</span></div>
+                                <div class="flex justify-between border-b border-slate-800 pb-2"><span class="text-slate-400">Số tài khoản:</span><span id="qr-acc-number" class="font-bold text-brand-400 font-mono tracking-wider">99999999983868</span></div>
+                                <div class="flex justify-between border-b border-slate-800 pb-2"><span class="text-slate-400">Chủ TK:</span><span id="qr-acc-holder" class="font-bold text-white uppercase">PHAM VAN HOA</span></div>
+                                <div class="flex justify-between border-b border-slate-800 pb-2"><span class="text-slate-400">Số tiền:</span><span id="qr-display-amount" class="font-bold text-amber-400 font-mono text-base">0 đ</span></div>
+                                <div class="flex justify-between items-center"><span class="text-slate-400">Nội dung CK:</span><span id="qr-display-content" class="font-black text-white font-mono px-2 py-0.5" style="background:rgba(0,0,0,.4);border:1px solid rgba(148,163,255,.4)"></span></div>
+                            </div></div>
                     </div>
-
-                    <div id="qr-expired-message" class="hidden py-8 space-y-3">
-                        <div class="p-4 bg-red-500/10 border border-red-500/30 text-red-400 font-extrabold text-xs uppercase">
-                            <i class="fa-solid fa-triangle-exclamation mr-2 text-sm"></i> Mã QR đã hết hạn! Vui lòng tạo lại lệnh nạp mới.
-                        </div>
-                    </div>
-
-                    <div id="deposit-loading" class="hidden py-6 text-center space-y-3">
-                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-brand-500 border-t-transparent"></div>
-                        <p class="text-xs text-slate-300 font-bold uppercase">Đang đồng bộ giao dịch ngân hàng...</p>
-                    </div>
-                    <div id="deposit-actions" class="grid grid-cols-2 gap-4">
-                        <button onclick="cancelDeposit()" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-extrabold py-3 text-xs uppercase transition">Hủy / Làm Mới</button>
-                        <button id="btn-confirm-paid" onclick="confirmPaid()" class="bg-brand-500 hover:bg-brand-600 text-white font-extrabold py-3 text-xs uppercase tracking-wider transition">Đã Thanh Toán</button>
-                    </div>
+                    <div id="qr-expired-message" class="hidden py-6"><div class="np-warn"><i class="fa-solid fa-triangle-exclamation"></i><span>Mã QR đã hết hạn! Vui lòng tạo lại lệnh nạp mới.</span></div></div>
+                    <div id="deposit-loading" class="hidden py-4 text-center space-y-3"><div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-sky-400 border-t-transparent"></div><p class="text-xs text-slate-300 font-bold uppercase">Đang đồng bộ giao dịch ngân hàng...</p></div>
+                    <div id="deposit-actions" class="np-row np-col"><div><span class="np-step">Bước 4</span> <span class="np-desc">Ấn XÁC NHẬN đã chuyển khoản trên shop</span></div>
+                        <button id="btn-confirm-paid" onclick="confirmPaid()" class="np-cta"><i class="fa-solid fa-circle-check"></i> Xác nhận</button>
+                        <p class="deposit-bonus-note np-bonus" style="margin-top:0"></p>
+                        <button onclick="cancelDeposit()" class="np-link self-center"><i class="fa-solid fa-rotate-left mr-1.5"></i> Hủy / Làm mới</button></div>
                 </div>
             </div>
         </section>
 
         <!-- 4b. TRANG NẠP TIỀN QUA THẺ CÀO -->
-        <section id="page-card-topup" class="hidden max-w-3xl mx-auto space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div class="lg:col-span-12 enterprise-card p-8 md:p-10 relative space-y-5 border-slate-700">
-                    <button onclick="showPage('deposit')" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2 bg-slate-900 border border-slate-700 hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
-                    <div class="border-b border-slate-800 pb-4">
-                        <span class="text-[10px] font-extrabold text-emerald-400 uppercase tracking-widest block">Nạp Tiền Qua Thẻ Cào</span>
-                        <h2 class="text-xl font-black text-white flex items-center tracking-wide uppercase mt-0.5"><i class="fa-solid fa-sim-card mr-2.5 text-emerald-500"></i> NẠP THẺ CÀO VÀO VÍ</h2>
-                        <button type="button" onclick="showPage('card-topup-history')" class="mt-3 inline-flex items-center bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/40 text-purple-400 px-3 py-2 text-[11px] font-extrabold uppercase tracking-wider transition"><i class="fa-solid fa-clock-rotate-left mr-2"></i> Xem Lịch Sử Nạp Thẻ</button>
-                    </div>
+                <section id="page-card-topup" class="hidden max-w-lg mx-auto space-y-6">
+            <div class="np-panel np-card">
+                <button onclick="showPage('deposit')" class="np-close" title="Đóng"><i class="fa-solid fa-xmark"></i></button>
+                <div class="np-title"><i class="fa-solid fa-credit-card"></i> Nạp tiền bằng thẻ cào</div>
+                <div class="np-links"><button type="button" onclick="showPage('deposit')" class="np-link"><i class="fa-solid fa-building-columns mr-1.5"></i> Nạp bằng ATM</button><button type="button" onclick="showPage('card-topup-history')" class="np-link"><i class="fa-solid fa-clock-rotate-left mr-1.5"></i> Lịch sử nạp thẻ</button></div>
 
-                    <div>
-                        <label class="block text-xs font-extrabold text-slate-400 mb-2 uppercase tracking-wider">Chọn Nhà Mạng</label>
-                        <div id="card-topup-carrier-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
-                        <div id="card-topup-fee-note" class="mt-3 bg-slate-950 border border-slate-800 p-4 space-y-2.5"></div>
-                    </div>
+                <div class="np-row"><div class="np-lead"><span class="np-step">Bước 1</span><div class="np-desc">Chọn đúng NHÀ MẠNG</div></div>
+                    <div class="np-side"><div id="card-topup-carrier-grid" class="grid grid-cols-4 gap-2"></div></div></div>
+                <div id="card-topup-fee-note" class="np-note space-y-2.5"></div>
 
-                    <div id="card-topup-detail-box" class="hidden space-y-5 pt-1">
-                        <div>
-                            <label class="block text-xs font-extrabold text-slate-400 mb-2 uppercase tracking-wider">Chọn Mệnh Giá Thẻ</label>
-                            <div id="card-topup-denom-grid" class="grid grid-cols-3 gap-2.5"></div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-extrabold text-slate-400 mb-1.5 uppercase tracking-wider">Số Seri Thẻ</label>
-                            <input type="text" id="card-topup-serial" placeholder="Nhập số Seri in trên thẻ..." class="w-full bg-slate-950 border border-slate-800 px-4 py-3 text-sm text-white outline-none font-mono tracking-wider focus:border-brand-500 transition">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-extrabold text-slate-400 mb-1.5 uppercase tracking-wider">Mã Thẻ (Cào)</label>
-                            <input type="text" id="card-topup-code" placeholder="Nhập mã thẻ sau khi cào..." class="w-full bg-slate-950 border border-slate-800 px-4 py-3 text-sm text-white outline-none font-mono tracking-wider focus:border-brand-500 transition">
-                        </div>
-                        <div id="card-topup-net-preview" class="hidden bg-emerald-500/10 border border-emerald-500/30 text-slate-200 text-xs font-semibold p-3 leading-relaxed"></div>
-                        <div id="card-topup-notice" class="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-semibold p-3 leading-relaxed">
-                            <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> <span id="card-topup-notice-text">Số tiền cộng vào ví sẽ được khấu trừ theo mức phí gạch thẻ hiện hành và cộng vào ví sau khi Admin đối soát thành công.</span>
-                        </div>
-                        <button onclick="submitCardTopup()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold py-3.5 text-xs uppercase tracking-wider transition shadow-lg shadow-emerald-500/20"><i class="fa-solid fa-paper-plane mr-2"></i> Gửi Yêu Cầu Nạp Thẻ</button>
-                    </div>
+                <div id="card-topup-detail-box">
+                    <div class="np-row"><div class="np-lead"><span class="np-step">Bước 2</span><div class="np-desc">Chọn đúng MỆNH GIÁ</div></div>
+                        <div class="np-side"><div id="card-topup-denom-grid" class="grid grid-cols-3 gap-2"></div></div></div>
+                    <div class="np-row"><div class="np-lead"><span class="np-step">Bước 3</span><div class="np-desc">Nhập SỐ SERI và MÃ THẺ</div></div>
+                        <div class="np-side space-y-2">
+                            <div class="np-field"><small>SERI</small><input type="text" id="card-topup-serial" placeholder="Nhập seri thẻ" class="np-input"><i class="fa-solid fa-credit-card text-slate-400"></i></div>
+                            <div class="np-field"><small>MÃ THẺ</small><input type="text" id="card-topup-code" placeholder="Nhập mã thẻ" class="np-input"><i class="fa-solid fa-lock text-slate-400"></i></div>
+                        </div></div>
+                    <div class="np-row"><div class="np-lead"><span class="np-step">Bước 4</span><div class="np-desc">Kiểm tra kỹ thông tin thẻ trước khi nạp</div></div>
+                        <div class="np-side"><div class="np-warn"><i class="fa-solid fa-triangle-exclamation"></i><div><b>CHÚ Ý</b><span>SAI MỆNH GIÁ MẤT THẺ !</span></div></div></div></div>
+                    <div id="card-topup-net-preview" class="hidden np-note" style="border-color:rgba(52,211,153,.4)"></div>
+                    <div id="card-topup-notice" class="np-note" style="border-color:rgba(251,191,36,.4);color:#fcd34d;font-weight:600"><i class="fa-solid fa-triangle-exclamation mr-1.5"></i> <span id="card-topup-notice-text">Số tiền cộng vào ví sẽ được khấu trừ theo mức phí gạch thẻ hiện hành và cộng vào ví sau khi Admin đối soát thành công.</span></div>
+                    <div class="np-hexwrap"><button onclick="submitCardTopup()" class="np-cta np-cta-hex">Nạp thẻ ngay</button></div>
                 </div>
             </div>
         </section>
@@ -4370,7 +4404,7 @@
         function renderCardTopupPage() {
             _cardTopupCarrier = null;
             _cardTopupDenom = null;
-            document.getElementById('card-topup-detail-box').classList.add('hidden');
+            document.getElementById('card-topup-detail-box').classList.remove('hidden');
             document.getElementById('card-topup-serial').value = '';
             document.getElementById('card-topup-code').value = '';
             const carrierGrid = document.getElementById('card-topup-carrier-grid');
@@ -4380,15 +4414,13 @@
                 : 'Số tiền cộng vào ví sẽ được khấu trừ theo mức phí gạch thẻ hiện hành và cộng vào ví sau khi Admin đối soát thành công.';
             const feeCfg = getCardFeeConfig();
             carrierGrid.innerHTML = CARD_CARRIERS.map(c => `
-                <button type="button" id="carrier-btn-${c}" onclick="selectCardCarrier('${c}')" class="flex flex-col items-center justify-center text-center px-1 py-3 bg-slate-900 border border-slate-800 hover:border-emerald-500 text-slate-200 transition">
-                    <span class="block text-xs font-extrabold uppercase leading-tight">${c}</span>
-                    <span id="carrier-fee-${c}" class="block text-[10px] font-bold normal-case opacity-80 mt-1">Chiết khấu ${feeCfg[c] != null ? feeCfg[c] : 10}%</span>
+                <button type="button" id="carrier-btn-${c}" onclick="selectCardCarrier('${c}')" class="np-tile np-c-${c}">
+                    <span class="np-tn">${c.toLowerCase()}</span>
+                    <span id="carrier-fee-${c}" class="np-tf">CK ${feeCfg[c] != null ? feeCfg[c] : 10}%</span>
                 </button>
             `).join('');
             const denomGrid = document.getElementById('card-topup-denom-grid');
-            denomGrid.innerHTML = CARD_DENOMS.map(d => `
-                <button type="button" id="denom-btn-${d}" onclick="selectCardDenom(${d})" class="bg-slate-900 border border-slate-800 hover:border-emerald-500 text-slate-200 font-bold py-2.5 text-xs font-mono transition">${formatVND(d)}</button>
-            `).join('');
+            denomGrid.innerHTML = CARD_DENOMS.map(d => `<button type="button" id="denom-btn-${d}" onclick="selectCardDenom(${d})" class="np-chip">${d / 1000}K</button>`).join('');
             renderCardTopupFeeNote();
             refreshCardTopupNetPreview();
             renderCardTopupHistory();
@@ -4412,7 +4444,7 @@
                 <p class="text-[11px] text-slate-400 font-medium leading-relaxed">Thực nhận = Mệnh giá thẻ × (100% − chiết khấu). VD: thẻ ${formatVND(ex)} của ${CARD_CARRIERS[0]} chiết khấu ${getCardTopupFee(CARD_CARRIERS[0])}% → nhận ${formatVND(Math.round(ex * (1 - getCardTopupFee(CARD_CARRIERS[0]) / 100)))}.</p>`;
             CARD_CARRIERS.forEach(c => {
                 const el = document.getElementById('carrier-fee-' + c);
-                if (el) el.textContent = 'Chiết khấu ' + getCardTopupFee(c) + '%';
+                if (el) el.textContent = 'CK ' + getCardTopupFee(c) + '%';
             });
             refreshCardTopupNetPreview();
         }
@@ -4428,19 +4460,13 @@
         }
         function selectCardCarrier(carrier) {
             _cardTopupCarrier = carrier;
-            CARD_CARRIERS.forEach(c => {
-                const btn = document.getElementById('carrier-btn-' + c);
-                if (btn) btn.className = 'flex flex-col items-center justify-center text-center px-1 py-3 transition border ' + (c === carrier ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-slate-900 border-slate-800 hover:border-emerald-500 text-slate-200');
-            });
+            CARD_CARRIERS.forEach(c => { const btn = document.getElementById('carrier-btn-' + c); if (btn) btn.classList.toggle('sel', c === carrier); });
             document.getElementById('card-topup-detail-box').classList.remove('hidden');
             refreshCardTopupNetPreview();
         }
         function selectCardDenom(amount) {
             _cardTopupDenom = amount;
-            CARD_DENOMS.forEach(d => {
-                const btn = document.getElementById('denom-btn-' + d);
-                if (btn) btn.className = 'font-bold py-2.5 text-xs font-mono transition border ' + (d === amount ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-slate-900 border-slate-800 hover:border-emerald-500 text-slate-200');
-            });
+            CARD_DENOMS.forEach(d => { const btn = document.getElementById('denom-btn-' + d); if (btn) btn.classList.toggle('sel', d === amount); });
             refreshCardTopupNetPreview();
         }
         function submitCardTopup() {
@@ -4842,7 +4868,7 @@
             if (pageId === 'user-history') renderUserHistoryTables();
             if (pageId === 'admin') renderAdminAllData();
             if (pageId === 'history') renderHistory();
-            if (pageId === 'deposit') setupDepositPage();
+            if (pageId === 'deposit') { setupDepositPage(); renderDepositBonusNote(); }
             if (pageId === 'card-topup') renderCardTopupPage();
             if (pageId === 'card-topup-history') renderCardTopupHistory();
             if (pageId === 'sell-acc') renderSellAccPage();
@@ -5396,6 +5422,11 @@
         }
 
         // --- NẠP TIỀN (AUTO APPROVE FOR ADMIN / QR FOR USER) ---
+        function renderDepositBonusNote() {
+            const b = (getSettings().bonusPercent || 0);
+            const html = `Shop duyệt và cộng tiền <b>TỰ ĐỘNG</b>${b > 0 ? ` (+${b}% Khuyến mãi)<small>(*Cộng thêm ${b}% khuyến mãi cho nạp ATM)</small>` : ''}`;
+            document.querySelectorAll('.deposit-bonus-note').forEach(el => { el.innerHTML = html; });
+        }
         function setupDepositPage() {
             document.getElementById('deposit-amount-formatted').value = '';
             document.getElementById('deposit-input-box').classList.remove('hidden');
@@ -5771,7 +5802,12 @@
         function generateVietQR(amount, bonusVal) {
             const settings = getSettings();
             const bank = VIETNAM_BANKS.find(b => b.id === settings.vietqrBank) || VIETNAM_BANKS[0];
-            const content = `NAP ${currentUser.username.toUpperCase().replace(/\s+/g, '')} ${Date.now().toString().slice(-4)}`;
+            // Mã QR lấy từ tài khoản nhận tiền Admin đã cài sẵn; nội dung chuyển khoản là mã NGẪU NHIÊN, không trùng lệnh nào trước đó
+            if (!settings.vietqrAccNo) { showToast("Admin chưa cài đặt tài khoản nhận tiền / mã QR. Vui lòng liên hệ Admin!", "error"); return; }
+            const usedContents = new Set(getDeposits().map(d => d.content));
+            const genCode = () => 'NAP' + Array.from({ length: 8 }, () => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random() * 32)]).join('');
+            let content = genCode();
+            while (usedContents.has(content)) content = genCode();
 
             const qrUrl = `https://img.vietqr.io/image/${bank.bin || bank.code}-${settings.vietqrAccNo}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent(settings.vietqrAccName)}`;
 
