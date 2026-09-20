@@ -1300,8 +1300,8 @@
                             <input type="text" id="card-topup-code" placeholder="Nhập mã thẻ sau khi cào..." class="w-full bg-slate-950 border border-slate-800 px-4 py-3 text-sm text-white outline-none font-mono tracking-wider focus:border-brand-500 transition">
                         </div>
                         <div id="card-topup-net-preview" class="hidden bg-emerald-500/10 border border-emerald-500/30 text-slate-200 text-xs font-semibold p-3 leading-relaxed"></div>
-                        <div class="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-semibold p-3 leading-relaxed">
-                            <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> Số tiền cộng vào ví sẽ được khấu trừ theo mức phí gạch thẻ hiện hành và cộng vào ví sau khi Admin đối soát thành công.
+                        <div id="card-topup-notice" class="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-semibold p-3 leading-relaxed">
+                            <i class="fa-solid fa-triangle-exclamation mr-1.5"></i> <span id="card-topup-notice-text">Số tiền cộng vào ví sẽ được khấu trừ theo mức phí gạch thẻ hiện hành và cộng vào ví sau khi Admin đối soát thành công.</span>
                         </div>
                         <button onclick="submitCardTopup()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold py-3.5 text-xs uppercase tracking-wider transition shadow-lg shadow-emerald-500/20"><i class="fa-solid fa-paper-plane mr-2"></i> Gửi Yêu Cầu Nạp Thẻ</button>
                     </div>
@@ -4374,6 +4374,10 @@
             document.getElementById('card-topup-serial').value = '';
             document.getElementById('card-topup-code').value = '';
             const carrierGrid = document.getElementById('card-topup-carrier-grid');
+            const noticeTxt = document.getElementById('card-topup-notice-text');
+            if (noticeTxt) noticeTxt.textContent = (currentUser && currentUser.role !== 'user')
+                ? 'Tài khoản Admin: đơn nạp thẻ được tự động duyệt và cộng thẳng vào ví ngay, đã khấu trừ theo % chiết khấu hiện hành.'
+                : 'Số tiền cộng vào ví sẽ được khấu trừ theo mức phí gạch thẻ hiện hành và cộng vào ví sau khi Admin đối soát thành công.';
             const feeCfg = getCardFeeConfig();
             carrierGrid.innerHTML = CARD_CARRIERS.map(c => `
                 <button type="button" id="carrier-btn-${c}" onclick="selectCardCarrier('${c}')" class="flex flex-col items-center justify-center text-center px-1 py-3 bg-slate-900 border border-slate-800 hover:border-emerald-500 text-slate-200 transition">
@@ -4453,11 +4457,45 @@
                 username: currentUser.username,
                 carrier: _cardTopupCarrier,
                 denom: _cardTopupDenom,
+                role: currentUser.role,
                 serial, code,
                 status: 'pending',
                 createdAt: new Date().toLocaleString('vi-VN')
             };
             const list = getCardTopups();
+
+            // Admin / Admin Trải Nghiệm: tự động duyệt, cộng thẳng vào ví (giống nạp tiền của Admin)
+            if (currentUser.role === 'admin' || currentUser.role === 'trial_admin') {
+                const fee = getCardTopupFee(record.carrier);
+                const netAmount = Math.round(record.denom * (1 - fee / 100));
+                if (currentUser.role === 'admin') {
+                    const users = getUsers();
+                    const uIdx = users.findIndex(u => u.phone === currentUser.phone || u.username === currentUser.username);
+                    if (uIdx === -1) { showToast("Không tìm thấy tài khoản Admin để cộng ví!", "error"); return; }
+                    users[uIdx].balance = (users[uIdx].balance || 0) + netAmount;
+                    currentUser.balance = users[uIdx].balance;
+                    saveUsers(users);
+                } else {
+                    const orders = getTrialOrders();
+                    const oIdx = orders.findIndex(o => o.id === currentUser.trialOrderId);
+                    if (oIdx === -1 || !orders[oIdx].account) { showToast("Không tìm thấy tài khoản trải nghiệm để cộng ví!", "error"); return; }
+                    orders[oIdx].account.balance = (orders[oIdx].account.balance || 0) + netAmount;
+                    currentUser.balance = orders[oIdx].account.balance;
+                    saveTrialOrders(orders);
+                }
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                record.status = 'done';
+                record.feeApplied = fee;
+                record.netAmount = netAmount;
+                record.autoApproved = true;
+                list.unshift(record);
+                saveCardTopups(list);
+                updateUI();
+                showToast(`[ADMIN AUTO] Nạp thẻ ${record.carrier} ${formatVND(record.denom)} thành công: cộng ${formatVND(netAmount)} vào ví!`, "success");
+                renderCardTopupPage();
+                return;
+            }
+
             list.unshift(record);
             saveCardTopups(list);
             pushAdminNotification('cardtopup', record.id, `${currentUser.username} gửi yêu cầu nạp thẻ ${record.carrier} mệnh giá ${formatVND(record.denom)} — mã ${record.id}.`);
@@ -4468,7 +4506,7 @@
         function renderCardTopupHistory() {
             const box = document.getElementById('card-topup-history-list');
             if (!box || !currentUser) return;
-            const mine = getCardTopups().filter(c => c.username === currentUser.username);
+            const mine = getCardTopups().filter(c => c.username === currentUser.username && (c.role || 'user') === currentUser.role);
             if (mine.length === 0) { box.innerHTML = `<div class="text-center text-[11px] text-slate-500 font-bold py-6">Chưa có yêu cầu nạp thẻ nào.</div>`; return; }
             const statusLabel = { pending: [ICON_PENDING + 'Chờ duyệt', 'bg-amber-500/10 text-amber-300 border-amber-500/30'], done: [ICON_DONE + 'Đã hoàn tất', DONE_BADGE_CLS], rejected: ['Bị từ chối', 'bg-red-500/10 text-red-300 border-red-500/30'] };
             box.innerHTML = mine.map(c => {
@@ -4479,7 +4517,14 @@
                             <span class="font-extrabold text-white">${escHtml(c.carrier)} · ${formatVND(c.denom)}</span>
                             <span class="border px-1.5 py-0.5 font-black uppercase tracking-wider ${cls}">${label}</span>
                         </div>
-                        <p class="text-slate-500 font-mono">${escHtml(c.createdAt)}</p>
+                        <div class="flex items-center justify-between gap-2 bg-slate-900 border border-slate-800 px-2 py-1.5">
+                            <span class="shrink-0 text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Mã GD</span>
+                            <span class="flex items-center gap-2 min-w-0">
+                                <span class="font-mono font-bold text-white truncate select-all">${escHtml(c.id)}</span>
+                                <button type="button" onclick="copyTxnCode('${escHtml(c.id)}', 'mã giao dịch')" title="Sao chép mã giao dịch" class="shrink-0 inline-flex items-center gap-1 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/40 text-purple-400 px-2 py-1 text-[10px] font-extrabold uppercase transition"><i class="fa-solid fa-copy"></i> Sao chép</button>
+                            </span>
+                        </div>
+                        <p class="text-slate-500 font-mono">${escHtml(c.createdAt)}${c.autoApproved ? ' · Tự động duyệt (Admin)' : ''}</p>
                         ${c.status === 'done' ? `<p class="text-emerald-400 font-bold">Chiết khấu ${c.feeApplied != null ? c.feeApplied : 0}% · Thực nhận: ${formatVND(c.netAmount || 0)}</p>` : ''}
                         ${c.status === 'rejected' && c.rejectReason ? `<p class="text-red-300 font-semibold">Lý do: ${escHtml(c.rejectReason)}</p>` : ''}
                     </div>`;
@@ -4706,8 +4751,8 @@
                     <button onclick="showPage('home'); toggleOffCanvasMenu();" class="w-full text-left px-3 py-2.5 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/40 text-purple-400 text-xs font-bold uppercase"><i class="fa-solid fa-house mr-2"></i> Trang Chủ</button>
                     <button onclick="showPage('deposit'); toggleOffCanvasMenu();" class="w-full text-left px-3 py-2.5 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-xs font-bold uppercase"><i class="fa-solid fa-qrcode mr-2"></i> Nạp Tiền Vào Ví</button>
                     <button onclick="showPage('withdraw'); toggleOffCanvasMenu();" class="w-full text-left px-3 py-2.5 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs font-bold uppercase"><i class="fa-solid fa-money-bill-transfer mr-2"></i> Rút Tiền Về Bank</button>
-                    ${isRegularUser ? `<button onclick="showPage('card-topup'); toggleOffCanvasMenu();" class="w-full text-left px-3 py-2.5 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/40 text-purple-400 text-xs font-bold uppercase"><i class="fa-solid fa-sim-card mr-2"></i> Nạp Tiền Bằng Thẻ Cào</button>` : ''}
-                    ${isRegularUser ? `<button onclick="showPage('card-topup-history'); toggleOffCanvasMenu();" class="w-full text-left px-3 py-2.5 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs font-bold uppercase"><i class="fa-solid fa-clock-rotate-left mr-2"></i> Lịch Sử Nạp Thẻ Cào</button>` : ''}
+                    ${(isRegularUser || isAdmin || isTrialAdmin) ? `<button onclick="showPage('card-topup'); toggleOffCanvasMenu();" class="w-full text-left px-3 py-2.5 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/40 text-purple-400 text-xs font-bold uppercase"><i class="fa-solid fa-sim-card mr-2"></i> Nạp Tiền Bằng Thẻ Cào</button>` : ''}
+                    ${(isRegularUser || isAdmin || isTrialAdmin) ? `<button onclick="showPage('card-topup-history'); toggleOffCanvasMenu();" class="w-full text-left px-3 py-2.5 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs font-bold uppercase"><i class="fa-solid fa-clock-rotate-left mr-2"></i> Lịch Sử Nạp Thẻ Cào</button>` : ''}
                     ${isRegularUser ? `<button onclick="openSupportTicketModal(); toggleOffCanvasMenu();" class="w-full text-left px-3 py-2.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/40 text-red-400 text-xs font-bold uppercase"><i class="fa-solid fa-headset mr-2"></i> Hỗ Trợ 24/7</button>` : ''}
                     <button onclick="showPage('user-history'); toggleOffCanvasMenu();" class="w-full text-left px-3 py-2.5 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-400 text-xs font-bold uppercase"><i class="fa-solid fa-clock-rotate-left mr-2"></i> Lịch Sử Nạp / Rút</button>
                     <button onclick="showPage('history'); toggleOffCanvasMenu();" class="w-full text-left px-3 py-2.5 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-xs font-bold uppercase"><i class="fa-solid fa-box-open mr-2"></i> Tủ Đồ / Acc Đã Mua</button>
@@ -4777,8 +4822,8 @@
             }
 
             // Chỉ thành viên thường mới có trang Nạp Thẻ Cào
-            if ((pageId === 'card-topup' || pageId === 'card-topup-history') && (!currentUser || currentUser.role !== 'user')) {
-                showToast("Chỉ thành viên đã đăng nhập mới dùng được chức năng Nạp Thẻ Cào!", "error");
+            if ((pageId === 'card-topup' || pageId === 'card-topup-history') && (!currentUser || !['user', 'admin', 'trial_admin'].includes(currentUser.role))) {
+                showToast("Vui lòng đăng nhập để dùng chức năng Nạp Thẻ Cào!", "error");
                 pageId = currentUser ? 'home' : 'auth';
             }
 
