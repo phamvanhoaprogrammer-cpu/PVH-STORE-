@@ -294,6 +294,7 @@
 
         /* ===== NẠP TIỀN: giao diện game (ATM xanh dương / Thẻ cào tím) ===== */
         .np-panel{--np-c:#3b82f6;--np-g:rgba(59,130,246,.34);--slate-100:241 245 249;--slate-200:226 232 240;--slate-300:203 213 225;--slate-400:186 198 214;--slate-500:148 163 184;--slate-700:51 65 85;--slate-800:30 41 59;--slate-900:15 23 42;--slate-950:2 6 23;--text-white:255 255 255;--amber-300:252 211 77;--amber-400:251 191 36;--emerald-300:110 231 183;--emerald-400:52 211 153;--purple-400:192 132 252;--red-300:252 165 165;--red-400:248 113 113;--brand-400:52 211 153;position:relative;padding:34px 14px 16px;border-radius:22px!important;background:linear-gradient(180deg,#0a1a40,#050c22);border:2px solid var(--np-c);overflow:hidden;color:#e2e8f0}
+        .np-panel:not(.np-card) .np-step{background:rgba(255,255,255,.92);color:#000}
         .np-card{--np-c:#a855f7;--np-g:rgba(168,85,247,.34);background:linear-gradient(180deg,#26104a,#0d0623)}
         .np-panel div[class*="border-slate-"]{border-color:rgba(148,163,255,.3)!important}
         .np-close{position:absolute;top:12px;right:12px;z-index:2;width:30px;height:30px;border-radius:50%!important;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff}
@@ -310,12 +311,26 @@
         .np-field small{font-size:11.5px;font-weight:900;color:#cbd5e1;white-space:nowrap}
         .np-input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;font-family:'Nunito',system-ui,sans-serif;font-variant-numeric:tabular-nums;font-weight:700;font-size:16px}
         .np-input::placeholder{color:#64748b;font-weight:500}
-        .np-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;height:58px;padding:2px;border-radius:10px!important;border:2px solid transparent;color:#fff;overflow:hidden;line-height:1.1;opacity:.85;transition:transform .1s}
-        .np-tile.sel{opacity:1;border-color:#fff;}
-        .np-tn{font-size:10.5px;font-weight:900;letter-spacing:-.2px}.np-tf{font-size:9px;font-weight:700;margin-top:3px;opacity:.9}
-        .np-c-Viettel{background:#fff;color:#dc2626}.np-c-Mobifone{background:linear-gradient(#ef4444,#b91c1c)}.np-c-Vinaphone{background:linear-gradient(#3b82f6,#1d4ed8)}.np-c-Vietnamobile{background:linear-gradient(#fb923c,#ea580c)}
-        .np-chip{height:38px;border-radius:10px!important;font-size:15px;font-weight:900;color:#fff;background:linear-gradient(180deg,#a21caf,#6b1a6f);border:1px solid rgba(232,121,249,.55)}
-        .np-chip.sel{background:linear-gradient(180deg,#e879f9,#a21caf);border-color:#fff;}
+        /* --- Nhà mạng: thẻ logo thiết kế riêng cho từng hãng --- */
+        .np-tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:86px;padding:8px 4px 7px;border-radius:14px!important;border:2px solid rgba(255,255,255,.16);color:#fff;overflow:hidden;line-height:1.1;opacity:.92;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 6px 14px rgba(0,0,0,.28);transition:transform .15s,opacity .15s,border-color .15s,box-shadow .15s}
+        .np-tile::before{content:"";position:absolute;right:-22px;top:-22px;width:64px;height:64px;border-radius:50%!important;background:radial-gradient(circle,rgba(255,255,255,.28),rgba(255,255,255,0) 70%);pointer-events:none}
+        .np-tile:active{transform:scale(.97)}
+        .np-tile.sel{opacity:1;border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.22),0 8px 18px rgba(0,0,0,.35)}
+        .np-tile.sel::after{content:"\2713";position:absolute;top:5px;right:5px;width:17px;height:17px;border-radius:50%!important;background:#22c55e;color:#fff;font-size:11px;font-weight:900;line-height:17px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+        .np-logo{position:relative;display:block;width:34px;height:34px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+        .np-logo svg{display:block;width:100%;height:100%}
+        .np-tn{font-size:11.5px;font-weight:900;letter-spacing:0;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+        /* Màn hình hẹp: hàng chọn nhà mạng xếp dọc để logo có đủ chỗ */
+        @media (max-width:420px){.np-row.np-row-stack{flex-direction:column;align-items:stretch;gap:10px}.np-row.np-row-stack .np-lead{flex:0 0 auto}}
+        .np-tf{font-size:9.5px;font-weight:800;margin-top:1px;padding:1px 7px;border-radius:99px!important;background:rgba(0,0,0,.28);opacity:1}
+        .np-c-Viettel{background:linear-gradient(160deg,#ff4a5c,#c8001a)}
+        .np-c-Mobifone{background:linear-gradient(160deg,#3b7bff,#123fb0)}
+        .np-c-Vinaphone{background:linear-gradient(160deg,#2ccbff,#0a6cc4)}
+        .np-c-Vietnamobile{background:linear-gradient(160deg,#ffb04a,#e84f0c)}
+        /* --- Mệnh giá thẻ: nền trắng đục, số màu đen --- */
+        .np-chip{height:40px;border-radius:10px!important;font-size:15px;font-weight:900;color:#000;background:rgba(255,255,255,.9);border:2px solid rgba(255,255,255,.55);transition:transform .12s,box-shadow .12s,border-color .12s}
+        .np-chip:active{transform:scale(.96)}
+        .np-chip.sel{background:#fff;color:#000;border-color:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.35)}
         .np-warn{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px!important;border:2px solid #ef4444;background:rgba(127,29,29,.35);}
         .np-warn i{font-size:39px;color:#ef4444}.np-warn b{display:block;color:#f87171;font-size:17px;font-weight:900}.np-warn span{font-size:14px;font-weight:800;color:#fff}
         .np-cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 10px;border-radius:16px!important;font-weight:900;font-size:18.5px;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,#3b82f6,#1e3a8a);border:2px solid #bae6fd;text-shadow:0 1px 6px rgba(0,0,0,.5)}
@@ -327,6 +342,16 @@
         /* Dòng "bằng chữ" hiện dưới ô nhập số tiền nạp / rút */
         .amount-words{margin-top:6px;padding:6px 10px;border-radius:10px!important;background:rgba(251,191,36,.08);border:1px dashed rgba(251,191,36,.45);font-size:12.5px;line-height:1.5;font-weight:700;color:#fcd34d;word-break:break-word}
         .amount-words.hidden{display:none!important}
+        /* Tick xanh nằm NGOÀI ô nhập, hiện khi nhập xong 1 dòng và chuyển sang dòng khác */
+        .fld-row{display:flex;align-items:flex-start;gap:10px}
+        .fld-row > .fld-main{flex:1 1 auto;min-width:0}
+        .fld-tick{flex:0 0 28px;width:28px;height:28px;margin-top:9px;border-radius:50%!important;display:inline-flex;align-items:center;justify-content:center;background:#22c55e;transform:scale(0) rotate(-40deg);opacity:0;pointer-events:none;transition:transform .38s cubic-bezier(.34,1.56,.64,1),opacity .2s ease}
+        .fld-tick svg{width:16px;height:16px;display:block}
+        .fld-tick path{fill:none;stroke:#fff;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24}
+        .fld-row.is-done > .fld-tick{transform:scale(1) rotate(0);opacity:1;animation:fldPulse .8s ease-out}
+        .fld-row.is-done > .fld-tick path{stroke-dashoffset:0;transition:stroke-dashoffset .34s ease-out .16s}
+        @keyframes fldPulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.65)}100%{box-shadow:0 0 0 13px rgba(34,197,94,0)}}
+        @media (prefers-reduced-motion:reduce){.fld-tick,.fld-tick path{transition:none}.fld-row.is-done > .fld-tick{animation:none}}
         .amount-words b{color:#fff;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:800}
         .np-side .amount-words{text-align:right}
         html.light .amount-words{background:rgba(245,158,11,.12);border-color:rgba(180,83,9,.5);color:#92400e}
@@ -365,13 +390,38 @@
         /* --- giống ảnh mẫu hơn: thanh tiêu đề bo tròn, nhãn "BƯỚC", ô nhập tối, khung con viền tím nhạt --- */
         .enterprise-card div[class*="border-slate-"]{border-color:rgba(148,163,255,.3)!important}
         .enterprise-card h2{display:flex;align-items:center;justify-content:center;text-align:center;gap:8px;padding:9px 14px;border-radius:14px!important;background:linear-gradient(180deg,#1f4fb8,#132048);border:1px solid rgba(255,255,255,.3);color:#f1f5f9!important;letter-spacing:.05em;}
-        .enterprise-card label.block[class*="uppercase"]{display:inline-block;padding:2px 14px 2px 9px;border-radius:8px!important;color:#fff!important;background:linear-gradient(90deg,#3b82f6,rgba(59,130,246,0))}
+        .enterprise-card label.block[class*="uppercase"]{display:inline-block;padding:2px 14px 2px 9px;border-radius:8px!important;color:#000!important;background:rgba(255,255,255,.92)}
+        html.light .enterprise-card label.block[class*="uppercase"]:not([class*="lbl-"]),html.light .enterprise-card label.block[class*="uppercase"].lbl-white{box-shadow:inset 0 0 0 1px rgba(15,23,42,.22)}
         /* Nhãn tô màu riêng (ghi đè màu xanh dương mặc định của nhãn) */
-        .enterprise-card label.block[class*="uppercase"].lbl-red{background:linear-gradient(90deg,#ef4444,rgba(239,68,68,0))}
-        .enterprise-card label.block[class*="uppercase"].lbl-orange{background:linear-gradient(90deg,#f97316,rgba(249,115,22,0))}
-        .enterprise-card label.block[class*="uppercase"].lbl-purple{background:linear-gradient(90deg,#a855f7,rgba(168,85,247,0))}
-        .enterprise-card label.block[class*="uppercase"].lbl-green{background:linear-gradient(90deg,#22c55e,rgba(34,197,94,0))}
+        .enterprise-card label.block[class*="uppercase"].lbl-red{color:#fff!important;background:linear-gradient(90deg,#ef4444,rgba(239,68,68,0))}
+        .enterprise-card label.block[class*="uppercase"].lbl-orange{color:#fff!important;background:linear-gradient(90deg,#f97316,rgba(249,115,22,0))}
+        .enterprise-card label.block[class*="uppercase"].lbl-purple{color:#fff!important;background:linear-gradient(90deg,#a855f7,rgba(168,85,247,0))}
+        .enterprise-card label.block[class*="uppercase"].lbl-green{color:#fff!important;background:linear-gradient(90deg,#22c55e,rgba(34,197,94,0))}
+        /* Nhãn theo màu nhận diện từng nhà mạng (khu cấu hình % phí gạch thẻ của Admin) */
+        .enterprise-card label.block[class*="uppercase"].lbl-c-Viettel{color:#fff!important;background:linear-gradient(90deg,#e8283c,rgba(232,40,60,0))}
+        .enterprise-card label.block[class*="uppercase"].lbl-c-Mobifone{color:#fff!important;background:linear-gradient(90deg,#2f6df5,rgba(47,109,245,0))}
+        .enterprise-card label.block[class*="uppercase"].lbl-c-Vinaphone{color:#fff!important;background:linear-gradient(90deg,#18a8e6,rgba(24,168,230,0))}
+        .enterprise-card label.block[class*="uppercase"].lbl-c-Vietnamobile{color:#fff!important;background:linear-gradient(90deg,#f97316,rgba(249,115,22,0))}
+        .fee-cfg-Viettel:focus-within{border-color:#e8283c!important}.fee-cfg-Mobifone:focus-within{border-color:#2f6df5!important}.fee-cfg-Vinaphone:focus-within{border-color:#18a8e6!important}.fee-cfg-Vietnamobile:focus-within{border-color:#f97316!important}
         .enterprise-card label.block[class*="uppercase"].lbl-white{background:rgba(255,255,255,.92);color:#000!important}
+        /* ===== Tab dạng "khối cam đặc trượt" dùng chung cho toàn hệ thống (.ptabs > .ptab) ===== */
+        .ptabs{position:relative;display:flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:14px!important;background:rgba(2,6,23,.6);border:1px solid rgba(148,163,255,.3)}
+        .ptabs.hidden{display:none!important}
+        .ptab-pill{position:absolute;left:0;top:0;width:0;height:0;border-radius:10px!important;background:linear-gradient(180deg,#fbbf24,#f59e0b 55%,#d97706);box-shadow:0 4px 14px rgba(245,158,11,.35);opacity:0;pointer-events:none;transition:transform .32s cubic-bezier(.4,0,.2,1),width .32s cubic-bezier(.4,0,.2,1),height .32s cubic-bezier(.4,0,.2,1),opacity .2s ease}
+        .ptab{position:relative;z-index:1;padding:8px 13px;font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#94a3b8;background:transparent;border-radius:10px!important;transition:color .25s ease;text-align:center}
+        .ptab:hover{color:#e2e8f0}
+        .ptab.is-active,.ptab.is-active:hover{color:#1c1100}
+        .ptab.hidden{display:none!important}
+        @media (max-width:480px){.ptabs{gap:3px;flex-wrap:nowrap}.ptab{flex:1 1 auto;padding:8px 6px;font-size:10.5px;letter-spacing:.01em;line-height:1.25}}
+        @media (prefers-reduced-motion:reduce){.ptab-pill,.ptab{transition:none}}
+        /* Tab mục Quản lý kho acc: khối màu cam đặc trượt sang tab được chọn */
+        .acc-tabbar{position:relative;display:flex;flex-wrap:wrap;gap:6px;padding:4px;border-radius:14px!important;background:rgba(2,6,23,.6);border:1px solid rgba(148,163,255,.3)}
+        .acc-tab-pill{position:absolute;left:0;top:0;width:0;height:0;border-radius:10px!important;background:linear-gradient(180deg,#fbbf24,#f59e0b 55%,#d97706);box-shadow:0 4px 14px rgba(245,158,11,.35);opacity:0;pointer-events:none;transition:transform .32s cubic-bezier(.4,0,.2,1),width .32s cubic-bezier(.4,0,.2,1),height .32s cubic-bezier(.4,0,.2,1),opacity .2s ease}
+        .acc-tab{position:relative;z-index:1;padding:9px 14px;font-weight:800;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#94a3b8;background:transparent;border-radius:10px!important;transition:color .25s ease}
+        .acc-tab.is-active{color:#1c1100}
+        @media (max-width:480px){.acc-tabbar{gap:3px;flex-wrap:nowrap}.acc-tab{flex:1 1 auto;padding:9px 6px;font-size:10.5px;letter-spacing:.01em;line-height:1.25}}
+        .acc-tab.hidden{display:none!important}
+        @media (prefers-reduced-motion:reduce){.acc-tab-pill,.acc-tab{transition:none}}
         /* Tab Đăng nhập / Đăng ký: khối màu cam đặc (không trong suốt) trượt sang tab được chọn */
         .auth-tabbar{position:relative;display:flex;padding:4px;border-radius:14px!important;background:rgba(2,6,23,.6);border:1px solid rgba(148,163,255,.3)}
         .auth-tab-pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 2);border-radius:10px!important;background:linear-gradient(180deg,#fbbf24,#f59e0b 55%,#d97706);box-shadow:0 4px 14px rgba(245,158,11,.35);transform:translateX(0);opacity:1;transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .2s ease}
@@ -727,9 +777,9 @@
                 <h3 class="text-xs font-extrabold text-white uppercase tracking-wider flex items-center"><i class="fa-solid fa-envelope text-brand-400 mr-2 text-base"></i> Hộp Thư Thông Báo Hệ Thống</h3>
                 <button onclick="closeSystemInbox()" aria-label="Đóng hộp thư" class="w-8 h-8 shrink-0 bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-brand-500 transition"><i class="fa-solid fa-xmark text-base"></i></button>
             </div>
-            <div id="sys-inbox-tabs" class="hidden border-b border-slate-800 px-4 pt-2.5 gap-5 flex-wrap">
-                <button id="sys-inbox-tab-system" onclick="switchInboxTab('system')" class="pb-2 text-xs font-extrabold uppercase tracking-wider text-brand-400 border-b-2 border-brand-500">Thông báo hệ thống <span data-inbox-tab-badge="system" class="hidden ml-1 min-w-[16px] h-4 px-1 bg-red-600 text-white text-[10px] font-black font-mono leading-none items-center justify-center">0</span></button>
-                <button id="sys-inbox-tab-requests" onclick="switchInboxTab('requests')" class="pb-2 text-xs font-extrabold uppercase tracking-wider text-slate-300 hover:text-white">Yêu cầu chờ duyệt <span data-inbox-tab-badge="requests" class="hidden ml-1 min-w-[16px] h-4 px-1 bg-red-600 text-white text-[10px] font-black font-mono leading-none items-center justify-center">0</span></button>
+            <div id="sys-inbox-tabs" class="ptabs hidden mx-4 my-2.5"><span class="ptab-pill" aria-hidden="true"></span>
+                <button id="sys-inbox-tab-system" onclick="switchInboxTab('system')" class="ptab is-active">Thông báo hệ thống <span data-inbox-tab-badge="system" class="hidden ml-1 min-w-[16px] h-4 px-1 bg-red-600 text-white text-[10px] font-black font-mono leading-none items-center justify-center">0</span></button>
+                <button id="sys-inbox-tab-requests" onclick="switchInboxTab('requests')" class="ptab">Yêu cầu chờ duyệt <span data-inbox-tab-badge="requests" class="hidden ml-1 min-w-[16px] h-4 px-1 bg-red-600 text-white text-[10px] font-black font-mono leading-none items-center justify-center">0</span></button>
             </div>
             <div id="sys-inbox-body" class="p-4 space-y-2.5 overflow-y-auto custom-scrollbar grow"></div>
             <div id="sys-inbox-footer" class="border-t border-slate-800 p-3 flex justify-end flex-wrap gap-2">
@@ -772,9 +822,10 @@
                 </div>
 
                 <div class="border-t border-slate-800 pt-3">
-                    <div class="flex border-b border-slate-800 mb-4">
-                        <button type="button" id="support-tab-new" onclick="switchSupportTab('new')" class="px-3 pb-2 text-[11px] font-extrabold uppercase tracking-wider text-white border-b-2 border-brand-500"><i class="fa-solid fa-paper-plane mr-1.5"></i>Gửi Yêu Cầu</button>
-                        <button type="button" id="support-tab-history" onclick="switchSupportTab('history')" class="px-3 pb-2 text-[11px] font-extrabold uppercase tracking-wider text-slate-400 hover:text-white border-b-2 border-transparent"><i class="fa-solid fa-clock-rotate-left mr-1.5"></i>Lịch Sử Hỗ Trợ <span id="support-history-count" class="hidden ml-1 min-w-[16px] h-4 px-1 bg-brand-500 text-white text-[10px] font-black font-mono leading-none items-center justify-center">0</span></button>
+                    <div class="ptabs mb-4">
+                        <span class="ptab-pill" aria-hidden="true"></span>
+                        <button type="button" id="support-tab-new" onclick="switchSupportTab('new')" class="ptab is-active"><i class="fa-solid fa-paper-plane mr-1.5"></i>Gửi Yêu Cầu</button>
+                        <button type="button" id="support-tab-history" onclick="switchSupportTab('history')" class="ptab"><i class="fa-solid fa-clock-rotate-left mr-1.5"></i>Lịch Sử Hỗ Trợ <span id="support-history-count" class="hidden ml-1 min-w-[16px] h-4 px-1 bg-brand-500 text-white text-[10px] font-black font-mono leading-none items-center justify-center">0</span></button>
                     </div>
                     <div id="support-pane-new" class="space-y-3">
                     <div>
@@ -1536,8 +1587,8 @@
                 <div class="np-title"><i class="fa-solid fa-credit-card"></i> Nạp tiền bằng thẻ cào</div>
                 <div class="np-links"><button type="button" onclick="showPage('deposit')" class="np-link"><i class="fa-solid fa-building-columns mr-1.5"></i> Nạp bằng ATM</button><button type="button" onclick="showPage('card-topup-history')" class="np-link"><i class="fa-solid fa-clock-rotate-left mr-1.5"></i> Lịch sử nạp thẻ</button></div>
 
-                <div class="np-row"><div class="np-lead"><span class="np-step">Bước 1</span><div class="np-desc">Chọn đúng NHÀ MẠNG</div></div>
-                    <div class="np-side"><div id="card-topup-carrier-grid" class="grid grid-cols-4 gap-2"></div></div></div>
+                <div class="np-row np-row-stack"><div class="np-lead"><span class="np-step">Bước 1</span><div class="np-desc">Chọn đúng NHÀ MẠNG</div></div>
+                    <div class="np-side"><div id="card-topup-carrier-grid" class="grid grid-cols-2 gap-2.5"></div></div></div>
                 <div id="card-topup-fee-note" class="np-note space-y-2.5"></div>
 
                 <div id="card-topup-detail-box">
@@ -1608,6 +1659,7 @@
                     <form onsubmit="handleWithdrawSubmit(event)" class="space-y-4">
                         <div>
                             <label class="block text-xs font-extrabold text-slate-400 mb-1.5 uppercase tracking-wider">Ngân Hàng Thụ Hưởng</label>
+                            <div class="fld-row" data-tick="bank"><div class="fld-main">
                             <div class="bankpick" id="withdraw-bankpick">
                                 <button type="button" id="withdraw-bank-trigger" class="bankpick-trigger" onclick="toggleBankPicker('withdraw')">
                                     <span class="bankpick-avatar" id="withdraw-bank-avatar">?</span>
@@ -1621,20 +1673,26 @@
                                     </div>
                                     <div class="bankpick-list" id="withdraw-bank-list"></div>
                                 </div>
-                            </div>
+                            </div></div><span class="fld-tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
                             <select id="withdraw-bank" class="hidden" onchange="syncBankPickerFromSelect('withdraw')"></select>
                         </div>
                         <div>
                             <label class="block text-xs font-extrabold text-slate-400 mb-1.5 uppercase tracking-wider">Số Tài Khoản</label>
-                            <input type="text" id="withdraw-acc-no" placeholder="Nhập số tài khoản ngân hàng..." required class="w-full bg-slate-950 border border-slate-800 px-4 py-3 text-sm text-white outline-none font-mono tracking-wider focus:border-brand-500 transition">
+                            <div class="fld-row" data-tick="accno"><div class="fld-main">
+                            <input type="text" id="withdraw-acc-no" data-tick-input="accno" placeholder="Nhập số tài khoản ngân hàng..." required class="w-full bg-slate-950 border border-slate-800 px-4 py-3 text-sm text-white outline-none font-mono tracking-wider focus:border-brand-500 transition">
+                            </div><span class="fld-tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
                         </div>
                         <div>
                             <label class="block text-xs font-extrabold text-slate-400 mb-1.5 uppercase tracking-wider">Chủ Tài Khoản (Viết không dấu)</label>
-                            <input type="text" id="withdraw-acc-name" placeholder="NGUYEN VAN A" oninput="this.value = removeAccentsAndUppercase(this.value)" required class="w-full bg-slate-950 border border-slate-800 px-4 py-3 text-sm text-white outline-none uppercase font-extrabold focus:border-brand-500 transition">
+                            <div class="fld-row" data-tick="accname"><div class="fld-main">
+                            <input type="text" id="withdraw-acc-name" data-tick-input="accname" placeholder="NGUYEN VAN A" oninput="this.value = removeAccentsAndUppercase(this.value)" required class="w-full bg-slate-950 border border-slate-800 px-4 py-3 text-sm text-white outline-none uppercase font-extrabold focus:border-brand-500 transition">
+                            </div><span class="fld-tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
                         </div>
                         <div>
                             <label class="block text-xs font-extrabold text-slate-400 mb-1.5 uppercase tracking-wider">Số Tiền Muốn Rút (VNĐ)</label>
-                            <input type="text" id="withdraw-amount" inputmode="numeric" autocomplete="off" data-words="withdraw-amount-words" placeholder="VD: 200.000" oninput="formatCurrencyInput(this); updateWithdrawFeeCalc();" required class="w-full bg-slate-950 border border-slate-800 px-4 py-3 text-sm text-white outline-none font-mono font-bold focus:border-brand-500 transition">
+                            <div class="fld-row" data-tick="amount"><div class="fld-main">
+                            <input type="text" id="withdraw-amount" data-tick-input="amount" inputmode="numeric" autocomplete="off" data-words="withdraw-amount-words" placeholder="VD: 200.000" oninput="formatCurrencyInput(this); updateWithdrawFeeCalc();" required class="w-full bg-slate-950 border border-slate-800 px-4 py-3 text-sm text-white outline-none font-mono font-bold focus:border-brand-500 transition">
+                            </div><span class="fld-tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
                             <div id="withdraw-amount-words" class="amount-words hidden"></div>
                         </div>
 
@@ -1682,9 +1740,10 @@
         <!-- 6. TRANG LỊCH SỬ GIAO DỊCH USER -->
         <section id="page-user-history" class="hidden space-y-6">
             <div class="flex justify-between items-center bg-slate-950 p-4 border border-slate-800 flex-wrap gap-3">
-                <div class="flex border-b border-slate-800 flex-wrap gap-4">
-                    <button onclick="switchUserHistoryTab('deposits')" id="tab-user-deposits" class="font-extrabold text-brand-400 border-b-2 border-brand-500 pb-2 text-xs uppercase tracking-wider transition">Lịch Sử Nạp Tiền</button>
-                    <button onclick="switchUserHistoryTab('withdraws')" id="tab-user-withdraws" class="font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider transition">Lịch Sử Rút Tiền</button>
+                <div class="ptabs">
+                    <span class="ptab-pill" aria-hidden="true"></span>
+                    <button onclick="switchUserHistoryTab('deposits')" id="tab-user-deposits" class="ptab is-active">Lịch Sử Nạp Tiền</button>
+                    <button onclick="switchUserHistoryTab('withdraws')" id="tab-user-withdraws" class="ptab">Lịch Sử Rút Tiền</button>
                 </div>
                 <div class="flex items-center flex-wrap gap-2">
                     <button onclick="exportUserHistoryTxt()" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 px-3 py-2 text-xs font-extrabold transition"><i class="fa-solid fa-file-lines mr-1 text-brand-400"></i> .TXT</button>
@@ -1957,11 +2016,12 @@
                 <!-- BỘ LỌC VÀ BẢNG RÚT TIỀN -->
                 <div class="space-y-3 pt-2">
                     <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
-                        <div class="flex border-b border-slate-800 w-full sm:w-auto">
-                            <button onclick="filterWithdrawDashboard('ALL')" id="tab-dash-withdraw-all" class="px-3 py-2 text-xs font-extrabold text-brand-400 border-b-2 border-brand-500 uppercase">Tất Cả</button>
-                            <button onclick="filterWithdrawDashboard('pending')" id="tab-dash-withdraw-pending" class="px-3 py-2 text-xs font-extrabold text-slate-400 uppercase">Chờ Duyệt</button>
-                            <button onclick="filterWithdrawDashboard('approved')" id="tab-dash-withdraw-approved" class="px-3 py-2 text-xs font-extrabold text-slate-400 uppercase">Đã Duyệt</button>
-                            <button onclick="filterWithdrawDashboard('rejected')" id="tab-dash-withdraw-rejected" class="px-3 py-2 text-xs font-extrabold text-slate-400 uppercase">Đã Từ Chối</button>
+                        <div class="ptabs w-full sm:w-auto">
+                            <span class="ptab-pill" aria-hidden="true"></span>
+                            <button onclick="filterWithdrawDashboard('ALL')" id="tab-dash-withdraw-all" class="ptab is-active">Tất Cả</button>
+                            <button onclick="filterWithdrawDashboard('pending')" id="tab-dash-withdraw-pending" class="ptab">Chờ Duyệt</button>
+                            <button onclick="filterWithdrawDashboard('approved')" id="tab-dash-withdraw-approved" class="ptab">Đã Duyệt</button>
+                            <button onclick="filterWithdrawDashboard('rejected')" id="tab-dash-withdraw-rejected" class="ptab">Đã Từ Chối</button>
                         </div>
                         <input type="text" id="dash-withdraw-search-input" placeholder="Tìm theo Username, SĐT, STK..." oninput="debouncedRenderAdminWithdrawDashboard()" class="w-full sm:w-64 bg-slate-900 border border-slate-800 px-3 py-1.5 text-xs text-white outline-none focus:border-brand-500 transition">
                     </div>
@@ -2370,9 +2430,10 @@
                         <button onclick="openCreateUserModal()" class="bg-brand-500 hover:bg-brand-600 text-white font-extrabold px-3.5 py-2 text-xs uppercase tracking-wider transition"><i class="fa-solid fa-user-plus mr-1.5"></i> Thêm Tài Khoản Admin/User</button>
                     </div>
                 </div>
-                <div class="flex border-b border-slate-800">
-                    <button onclick="switchUserMgmtTab('active')" id="tab-user-mgmt-active" class="font-extrabold text-brand-400 border-b-2 border-brand-500 pb-2 px-1 text-xs uppercase tracking-wider mr-5">Danh Sách Hiện Tại</button>
-                    <button onclick="switchUserMgmtTab('deleted')" id="tab-user-mgmt-deleted" class="font-extrabold text-slate-400 pb-2 px-1 text-xs uppercase tracking-wider mr-5">Lịch Sử Đã Xóa</button>
+                <div class="ptabs">
+                    <span class="ptab-pill" aria-hidden="true"></span>
+                    <button onclick="switchUserMgmtTab('active')" id="tab-user-mgmt-active" class="ptab is-active">Danh Sách Hiện Tại</button>
+                    <button onclick="switchUserMgmtTab('deleted')" id="tab-user-mgmt-deleted" class="ptab">Lịch Sử Đã Xóa</button>
                 </div>
                 <div id="box-user-mgmt-active" class="overflow-x-auto custom-scrollbar max-h-[350px]">
                     <table class="w-full text-left text-xs text-slate-300">
@@ -2454,10 +2515,11 @@
                     <button type="button" onclick="saveBuybackPercent()" class="bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-6 py-3 text-xs uppercase tracking-wider transition"><i class="fa-solid fa-check-double mr-2"></i> Lưu Mức Giá Thu Mua</button>
                 </div>
 
-                <div class="flex border-b border-slate-800 flex-wrap gap-4">
-                    <button onclick="switchBuybackTab('pending')" id="bb-tab-pending" class="font-extrabold text-rose-400 border-b-2 border-rose-500 pb-2 text-xs uppercase tracking-wider">Yêu Cầu Chờ Duyệt <span id="bb-pending-count" class="ml-1 px-1.5 py-0.5 bg-amber-500 text-black text-[10px] font-black">0</span></button>
-                    <button onclick="switchBuybackTab('history')" id="bb-tab-history" class="font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider">Lịch Sử Thu Mua Chi Tiết</button>
-                    <button onclick="switchBuybackTab('recall')" id="bb-tab-recall" class="font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider">Thu Hồi Acc Của User</button>
+                <div class="ptabs">
+                    <span class="ptab-pill" aria-hidden="true"></span>
+                    <button onclick="switchBuybackTab('pending')" id="bb-tab-pending" class="ptab is-active">Yêu Cầu Chờ Duyệt <span id="bb-pending-count" class="ml-1 px-1.5 py-0.5 bg-red-600 text-white text-[10px] font-black">0</span></button>
+                    <button onclick="switchBuybackTab('history')" id="bb-tab-history" class="ptab">Lịch Sử Thu Mua Chi Tiết</button>
+                    <button onclick="switchBuybackTab('recall')" id="bb-tab-recall" class="ptab">Thu Hồi Acc Của User</button>
                 </div>
 
                 <div id="bb-box-pending" class="overflow-x-auto custom-scrollbar max-h-[450px]">
@@ -2529,10 +2591,11 @@
 
             <!-- QUẢN LÝ KHO ACC -->
             <div class="enterprise-card p-6 md:p-8 space-y-6 border-slate-700">
-                <div class="flex border-b border-slate-800 pb-3 flex-wrap gap-3">
-                    <button onclick="switchAccTab('single')" id="tab-acc-single" class="font-extrabold text-brand-400 border-b-2 border-brand-500 pb-2 text-xs uppercase tracking-wider mr-4">Thêm Acc Đơn Lẻ</button>
-                    <button onclick="switchAccTab('bulk')" id="tab-acc-bulk" class="font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider mr-4">Tạo Tự Động Kho</button>
-                    <button onclick="switchAccTab('delete-batch')" id="tab-acc-delete-batch" class="font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider mr-4">Xóa Kho Acc</button>
+                <div id="acc-tab-bar" class="acc-tabbar">
+                    <span class="acc-tab-pill" aria-hidden="true"></span>
+                    <button type="button" onclick="switchAccTab('single')" id="tab-acc-single" class="acc-tab is-active">Thêm Acc Đơn Lẻ</button>
+                    <button type="button" onclick="switchAccTab('bulk')" id="tab-acc-bulk" class="acc-tab">Tạo Tự Động Kho</button>
+                    <button type="button" onclick="switchAccTab('delete-batch')" id="tab-acc-delete-batch" class="acc-tab">Xóa Kho Acc</button>
                 </div>
 
                 <form id="form-acc-single-box" onsubmit="handleAdminSaveAcc(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -2659,10 +2722,11 @@
                 </div>
 
                 <!-- TAB CHUYỂN ĐỔI -->
-                <div class="flex border-b border-slate-800 pb-3 flex-wrap gap-3">
-                    <button onclick="switchTrialAdminTab('orders')" id="tab-trial-orders" class="font-extrabold text-brand-400 border-b-2 border-brand-500 pb-2 text-xs uppercase tracking-wider mr-4">Đơn Đăng Ký Chờ Duyệt</button>
-                    <button onclick="switchTrialAdminTab('pool')" id="tab-trial-pool" class="font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider mr-4">Kho Tài Khoản Trải Nghiệm</button>
-                    <button onclick="switchTrialAdminTab('active')" id="tab-trial-active" class="font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider mr-4">Tài Khoản Đang Hoạt Động</button>
+                <div class="ptabs">
+                    <span class="ptab-pill" aria-hidden="true"></span>
+                    <button onclick="switchTrialAdminTab('orders')" id="tab-trial-orders" class="ptab is-active">Đơn Đăng Ký Chờ Duyệt</button>
+                    <button onclick="switchTrialAdminTab('pool')" id="tab-trial-pool" class="ptab">Kho Tài Khoản Trải Nghiệm</button>
+                    <button onclick="switchTrialAdminTab('active')" id="tab-trial-active" class="ptab">Tài Khoản Đang Hoạt Động</button>
                 </div>
 
                 <!-- ĐƠN ĐĂNG KÝ -->
@@ -2758,9 +2822,10 @@
         <!-- 7B. TRANG BÁN ACC CHO ADMIN (USER) -->
         <section id="page-sell-acc" class="hidden space-y-6">
             <div class="flex justify-between items-center bg-slate-950 p-4 border border-slate-800 flex-wrap gap-3">
-                <div class="flex border-b border-slate-800 flex-wrap gap-4">
-                    <button onclick="switchSellTab('sell')" id="tab-sell-list" class="font-extrabold text-rose-400 border-b-2 border-rose-500 pb-2 text-xs uppercase tracking-wider transition">Bán Acc Đã Mua</button>
-                    <button onclick="switchSellTab('history')" id="tab-sell-history" class="font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider transition">Lịch Sử Acc Đã Bán</button>
+                <div class="ptabs">
+                    <span class="ptab-pill" aria-hidden="true"></span>
+                    <button onclick="switchSellTab('sell')" id="tab-sell-list" class="ptab is-active">Bán Acc Đã Mua</button>
+                    <button onclick="switchSellTab('history')" id="tab-sell-history" class="ptab">Lịch Sử Acc Đã Bán</button>
                 </div>
                 <button onclick="showPage('home')" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 px-4 py-2 text-xs font-extrabold transition flex items-center">
                     <i class="fa-solid fa-house mr-1.5"></i> Trang Chủ
@@ -3982,7 +4047,7 @@
             tabs.classList.toggle('flex', admin);
             ['system', 'requests'].forEach(t => {
                 const b = document.getElementById('sys-inbox-tab-' + t);
-                if (b) b.className = 'pb-2 text-xs font-extrabold uppercase tracking-wider transition ' + (t === _inboxTab ? 'text-brand-400 border-b-2 border-brand-500' : 'text-slate-300 hover:text-white');
+                if (b) b.classList.toggle('is-active', t === _inboxTab);
             });
 
             if (_inboxTab === 'requests') { renderRequestsTab(body, foot); return; }
@@ -4271,12 +4336,9 @@
             const isNew = tab !== 'history';
             document.getElementById('support-pane-new').classList.toggle('hidden', !isNew);
             document.getElementById('support-pane-history').classList.toggle('hidden', isNew);
-            const on = ['text-white', 'border-brand-500'], off = ['text-slate-400', 'border-transparent'];
             [['support-tab-new', isNew], ['support-tab-history', !isNew]].forEach(([id, active]) => {
                 const el = document.getElementById(id);
-                if (!el) return;
-                on.forEach(c => el.classList.toggle(c, active));
-                off.forEach(c => el.classList.toggle(c, !active));
+                if (el) el.classList.toggle('is-active', active);
             });
             if (!isNew) renderMySupportTickets();
         }
@@ -4628,6 +4690,21 @@
         // =====================================================================
         let _cardTopupCarrier = null;
         let _cardTopupDenom = null;
+        // Logo thiết kế riêng cho từng nhà mạng (SVG, không phụ thuộc icon font / ảnh ngoài)
+        function _starPts(cx, cy, R, r) {
+            const pts = [];
+            for (let i = 0; i < 10; i++) {
+                const ang = -Math.PI / 2 + i * Math.PI / 5, rad = i % 2 ? r : R;
+                pts.push((cx + rad * Math.cos(ang)).toFixed(1) + ',' + (cy + rad * Math.sin(ang)).toFixed(1));
+            }
+            return pts.join(' ');
+        }
+        const CARD_CARRIER_LOGOS = {
+            Viettel: `<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#fff"/><path d="M9.5 12 L20 29 L30.5 12" fill="none" stroke="#d9001b" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 33.5 Q20 38.5 32 33.5" fill="none" stroke="#d9001b" stroke-width="2.4" stroke-linecap="round" opacity=".55"/></svg>`,
+            Mobifone: `<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#fff"/><path d="M9.5 29 V13 L20 24 L30.5 13 V29" fill="none" stroke="#1246b8" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="9.5" r="4.2" fill="#ef2b3c"/></svg>`,
+            Vinaphone: `<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#fff"/><g fill="none" stroke="#0a6cc4" stroke-width="3.2" stroke-linecap="round"><path d="M14.3 24.7 A8 8 0 0 1 25.7 24.7"/><path d="M10.1 20.5 A14 14 0 0 1 29.9 20.5"/><path d="M6.9 17.4 A19 19 0 0 1 33.1 17.4" opacity=".55"/></g><circle cx="20" cy="30" r="3.4" fill="#0a6cc4"/></svg>`,
+            Vietnamobile: `<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#fff"/><polygon points="${_starPts(20, 19.5, 12.5, 5.2)}" fill="#e84f0c"/><path d="M9 33 Q20 28 31 33" fill="none" stroke="#e84f0c" stroke-width="2.6" stroke-linecap="round" opacity=".6"/></svg>`
+        };
         function renderCardTopupPage() {
             _cardTopupCarrier = null;
             _cardTopupDenom = null;
@@ -4641,8 +4718,9 @@
                 : 'Số tiền cộng vào ví sẽ được khấu trừ theo mức phí gạch thẻ hiện hành và cộng vào ví sau khi Admin đối soát thành công.';
             const feeCfg = getCardFeeConfig();
             carrierGrid.innerHTML = CARD_CARRIERS.map(c => `
-                <button type="button" id="carrier-btn-${c}" onclick="selectCardCarrier('${c}')" class="np-tile np-c-${c}">
-                    <span class="np-tn">${c.toLowerCase()}</span>
+                <button type="button" id="carrier-btn-${c}" onclick="selectCardCarrier('${c}')" class="np-tile np-c-${c}" aria-label="${c}">
+                    <span class="np-logo">${CARD_CARRIER_LOGOS[c] || ''}</span>
+                    <span class="np-tn">${c}</span>
                     <span id="carrier-fee-${c}" class="np-tf">CK ${feeCfg[c] != null ? feeCfg[c] : 10}%</span>
                 </button>
             `).join('');
@@ -4810,8 +4888,8 @@
             const cfg = getCardFeeConfig();
             grid.innerHTML = CARD_CARRIERS.map(c => `
                 <div>
-                    <label class="block text-[10px] font-extrabold text-slate-400 mb-1 uppercase">${c}</label>
-                    <div class="flex items-center bg-slate-950 border border-slate-800 focus-within:border-emerald-500 transition">
+                    <label class="block text-[10px] font-extrabold text-slate-400 mb-1 uppercase lbl-c-${c}">${c}</label>
+                    <div class="flex items-center bg-slate-950 border border-slate-800 transition fee-cfg-${c}">
                         <input type="number" min="0" max="100" step="0.5" id="card-fee-${c}" value="${cfg[c] != null ? cfg[c] : 10}" class="w-full bg-transparent px-2.5 py-2 text-xs text-white outline-none font-mono">
                         <span class="px-2 text-slate-500 text-[11px] font-bold">%</span>
                     </div>
@@ -5694,6 +5772,38 @@
             if (input.getAttribute('data-words')) renderAmountWords(input); // ô nạp / rút: hiện số tiền bằng chữ
         }
 
+        // ---- TICK XANH KHI NHẬP XONG TỪNG DÒNG (form Rút tiền về ngân hàng) ----
+        const WD_TICK_RULES = {
+            accno: v => v.replace(/\s/g, '').length >= 6,
+            accname: v => v.trim().length >= 3,
+            amount: v => (parseInt(String(v).replace(/\D/g, ''), 10) || 0) > 0
+        };
+        function setWdTick(key, on) {
+            const row = document.querySelector('#page-withdraw .fld-row[data-tick="' + key + '"]');
+            if (row) row.classList.toggle('is-done', !!on);
+        }
+        function updateWdBankTick() {
+            const sel = document.getElementById('withdraw-bank');
+            setWdTick('bank', !!(sel && sel.value));
+        }
+        function clearWdTicks(keys) {
+            (keys || ['bank', 'accno', 'accname', 'amount']).forEach(k => setWdTick(k, false));
+        }
+        (function initWdTicks() {
+            const page = document.getElementById('page-withdraw');
+            if (!page) return;
+            // đang gõ lại -> gỡ tick; rời khỏi ô (bấm sang dòng khác) mà dữ liệu hợp lệ -> hiện tick
+            page.addEventListener('input', e => {
+                const k = e.target && e.target.dataset && e.target.dataset.tickInput;
+                if (k) setWdTick(k, false);
+            });
+            page.addEventListener('focusout', e => {
+                const k = e.target && e.target.dataset && e.target.dataset.tickInput;
+                if (!k || !WD_TICK_RULES[k]) return;
+                setWdTick(k, WD_TICK_RULES[k](e.target.value || ''));
+            });
+        })();
+
         // ---- ĐỌC SỐ TIỀN BẰNG CHỮ (tiếng Việt) ----
         // VD: 1000000 -> "Một triệu đồng"; 500000 -> "Năm trăm nghìn đồng"; 1250000 -> "Một triệu hai trăm năm mươi nghìn đồng"
         const VN_NUM_WORDS = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
@@ -6257,6 +6367,7 @@
             if (select) select.value = bankId;
             syncBankPickerFromSelect(prefix);
             toggleBankPicker(prefix);
+            if (prefix === 'withdraw') updateWdBankTick(); // người dùng chọn xong ngân hàng -> tick xanh (ngân hàng mặc định chưa tick)
         }
         function syncBankPickerFromSelect(prefix) {
             const select = getBankSelectEl(prefix);
@@ -6474,6 +6585,7 @@
             document.getElementById('withdraw-amount').value = '';
             document.getElementById('withdraw-acc-no').value = '';
             document.getElementById('withdraw-acc-name').value = '';
+            clearWdTicks();
             refreshAmountWords();
             updateWithdrawFeeCalc();
         }
@@ -6544,13 +6656,13 @@
             if (tab === 'deposits') {
                 depBox.classList.remove('hidden');
                 wdBox.classList.add('hidden');
-                tabDep.className = 'font-extrabold text-brand-400 border-b-2 border-brand-500 pb-2 text-xs uppercase tracking-wider transition';
-                tabWd.className = 'font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider transition';
+                tabDep.classList.add('is-active');
+                tabWd.classList.remove('is-active');
             } else {
                 depBox.classList.add('hidden');
                 wdBox.classList.remove('hidden');
-                tabDep.className = 'font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider transition';
-                tabWd.className = 'font-extrabold text-brand-400 border-b-2 border-brand-500 pb-2 text-xs uppercase tracking-wider transition';
+                tabDep.classList.remove('is-active');
+                tabWd.classList.add('is-active');
             }
             renderUserHistoryTables();
         }
@@ -6779,13 +6891,7 @@
 
             ['all', 'pending', 'approved', 'rejected'].forEach(s => {
                 const btn = document.getElementById(`tab-dash-withdraw-${s}`);
-                if (btn) {
-                    if (s.toUpperCase() === status.toUpperCase()) {
-                        btn.className = 'px-3 py-2 text-xs font-extrabold text-brand-400 border-b-2 border-brand-500 uppercase';
-                    } else {
-                        btn.className = 'px-3 py-2 text-xs font-extrabold text-slate-400 uppercase';
-                    }
-                }
+                if (btn) btn.classList.toggle('is-active', s.toUpperCase() === status.toUpperCase());
             });
 
             renderAdminWithdrawDashboard();
@@ -7339,12 +7445,69 @@
                 const on = (k === active);
                 if (boxes[k]) boxes[k].classList.toggle('hidden', !on);
                 const t = tabs[k];
-                if (t) {
-                    ['text-brand-400', 'border-b-2', 'border-brand-500'].forEach(c => t.classList.toggle(c, on));
-                    t.classList.toggle('text-slate-400', !on);
-                }
+                if (t) t.classList.toggle('is-active', on);
             });
+            positionAccTabPill(true);
         }
+
+        // ---- Khối cam trượt dùng chung cho mọi nhóm tab .ptabs (chỉ cần bật/tắt class is-active trên .ptab) ----
+        function positionPtabs(bar, animate) {
+            if (!bar) return;
+            const pill = bar.querySelector(':scope > .ptab-pill');
+            const act = bar.querySelector('.ptab.is-active');
+            if (!pill) return;
+            if (!act || act.offsetWidth === 0) { pill.style.opacity = '0'; return; } // nhóm tab / trang đang ẩn
+            if (animate === false) pill.style.transition = 'none';
+            pill.style.opacity = '1';
+            pill.style.width = act.offsetWidth + 'px';
+            pill.style.height = act.offsetHeight + 'px';
+            pill.style.transform = 'translate(' + act.offsetLeft + 'px,' + act.offsetTop + 'px)';
+            if (animate === false) { void pill.offsetWidth; pill.style.transition = ''; }
+        }
+        (function initPtabs() {
+            const bars = document.querySelectorAll('.ptabs');
+            if (!bars.length) return;
+            const ro = window.ResizeObserver ? new ResizeObserver(entries => {
+                const seen = new Set();
+                entries.forEach(en => { const b = en.target.closest('.ptabs'); if (b && !seen.has(b)) { seen.add(b); positionPtabs(b, false); } });
+            }) : null;
+            const mo = new MutationObserver(muts => {
+                const seen = new Set();
+                muts.forEach(m => { const b = m.target.closest && m.target.closest('.ptabs'); if (b && !seen.has(b)) { seen.add(b); positionPtabs(b, true); } });
+            });
+            bars.forEach(bar => {
+                if (ro) { ro.observe(bar); bar.querySelectorAll('.ptab').forEach(t => ro.observe(t)); }
+                mo.observe(bar, { attributes: true, attributeFilter: ['class'], subtree: true });
+                positionPtabs(bar, false);
+            });
+            window.addEventListener('resize', () => bars.forEach(b => positionPtabs(b, false)));
+        })();
+
+        // Đặt khối cam đúng vị trí / kích thước của tab đang chọn (trượt mượt khi đổi tab)
+        function positionAccTabPill(animate) {
+            const bar = document.getElementById('acc-tab-bar');
+            if (!bar) return;
+            const pill = bar.querySelector('.acc-tab-pill');
+            const act = bar.querySelector('.acc-tab.is-active');
+            if (!pill) return;
+            if (!act || act.offsetWidth === 0) { pill.style.opacity = '0'; return; } // trang đang ẩn / tab bị ẩn
+            if (animate === false) pill.style.transition = 'none';
+            pill.style.opacity = '1';
+            pill.style.width = act.offsetWidth + 'px';
+            pill.style.height = act.offsetHeight + 'px';
+            pill.style.transform = 'translate(' + act.offsetLeft + 'px,' + act.offsetTop + 'px)';
+            if (animate === false) { void pill.offsetWidth; pill.style.transition = ''; }
+        }
+        (function initAccTabPill() {
+            const bar = document.getElementById('acc-tab-bar');
+            if (!bar) return;
+            if (window.ResizeObserver) {
+                const ro = new ResizeObserver(() => positionAccTabPill(false)); // trang admin vừa hiện / đổi cỡ màn hình / tab bị ẩn
+                ro.observe(bar);
+                bar.querySelectorAll('.acc-tab').forEach(t => ro.observe(t));
+            }
+            window.addEventListener('resize', () => positionAccTabPill(false));
+        })();
 
         function handleImageUpload(e) {
             const files = e.target.files;
@@ -7833,20 +7996,18 @@
             const deletedBox = document.getElementById('box-user-mgmt-deleted');
             const tabActive = document.getElementById('tab-user-mgmt-active');
             const tabDeleted = document.getElementById('tab-user-mgmt-deleted');
-            const activeCls = 'font-extrabold text-brand-400 border-b-2 border-brand-500 pb-2 px-1 text-xs uppercase tracking-wider mr-5';
-            const inactiveCls = 'font-extrabold text-slate-400 pb-2 px-1 text-xs uppercase tracking-wider mr-5';
 
             if (tab === 'deleted') {
                 activeBox.classList.add('hidden');
                 deletedBox.classList.remove('hidden');
-                tabActive.className = inactiveCls;
-                tabDeleted.className = activeCls;
+                tabActive.classList.remove('is-active');
+                tabDeleted.classList.add('is-active');
                 renderDeletedUsersTable();
             } else {
                 deletedBox.classList.add('hidden');
                 activeBox.classList.remove('hidden');
-                tabDeleted.className = inactiveCls;
-                tabActive.className = activeCls;
+                tabDeleted.classList.remove('is-active');
+                tabActive.classList.add('is-active');
             }
         }
 
@@ -9351,10 +9512,7 @@
             ['orders', 'pool', 'active'].forEach(t => {
                 const tabEl = document.getElementById(`tab-trial-${t}`);
                 if (!tabEl) return;
-                tabEl.classList.toggle('text-brand-400', t === tab);
-                tabEl.classList.toggle('border-b-2', t === tab);
-                tabEl.classList.toggle('border-brand-500', t === tab);
-                tabEl.classList.toggle('text-slate-400', t !== tab);
+                tabEl.classList.toggle('is-active', t === tab);
             });
             if (tab === 'active') renderAdminTrialActiveAccounts();
         }
@@ -9914,12 +10072,10 @@
             const histBox = document.getElementById('sell-box-history');
             const tList = document.getElementById('tab-sell-list');
             const tHist = document.getElementById('tab-sell-history');
-            const on = 'font-extrabold text-rose-400 border-b-2 border-rose-500 pb-2 text-xs uppercase tracking-wider transition';
-            const off = 'font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider transition';
             listBox.classList.toggle('hidden', sellTab !== 'sell');
             histBox.classList.toggle('hidden', sellTab !== 'history');
-            tList.className = sellTab === 'sell' ? on : off;
-            tHist.className = sellTab === 'history' ? on : off;
+            tList.classList.toggle('is-active', sellTab === 'sell');
+            tHist.classList.toggle('is-active', sellTab === 'history');
 
             const myReqs = getBuybackRequests().filter(r => r.username === currentUser.username);
 
@@ -10060,12 +10216,10 @@
             const pending = reqs.filter(r => r.type === 'sell' && r.status === 'pending');
             document.getElementById('bb-pending-count').innerText = pending.length;
 
-            const on = 'font-extrabold text-rose-400 border-b-2 border-rose-500 pb-2 text-xs uppercase tracking-wider';
-            const off = 'font-extrabold text-slate-400 pb-2 text-xs uppercase tracking-wider';
             ['pending', 'history', 'recall'].forEach(t => {
                 document.getElementById('bb-box-' + t).classList.toggle('hidden', bbTab !== t);
                 const btn = document.getElementById('bb-tab-' + t);
-                btn.className = bbTab === t ? on : off;
+                btn.classList.toggle('is-active', bbTab === t);
             });
 
             if (bbTab === 'pending') {
